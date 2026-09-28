@@ -31,7 +31,7 @@
 ==========================================================================*/
 
 /**
- * fdt_merge_overlay - Merge overlay into primary blob
+ * dtb_extn_merge_overlay - Merge overlay into primary blob
  * @primary_blob:    Primary DTB tree
  * @pb_size:         size of Primary Blob
  * @overlay_blob:    Overlay DTB tree
@@ -44,9 +44,9 @@
  * FdtLib calls:
  * 		fdt_totalsize()
  * 		fdt_open_into()
- * 		fdt_overlay_apply() 
+ * 		fdt_overlay_apply()
  */
-int fdt_merge_overlay(const void *primary_blob, size_t pb_size, void *overlay_blob, size_t ob_size, void *merge_blob, size_t mb_size)
+int dtb_extn_merge_overlay(const void *primary_blob, size_t pb_size, void *overlay_blob, size_t ob_size, void *merge_blob, size_t mb_size)
 {
 	int ret_value;
 
@@ -59,10 +59,10 @@ int fdt_merge_overlay(const void *primary_blob, size_t pb_size, void *overlay_bl
 	PTR_CHECK(merge_blob);
 
 	/* primary_blob should be a valid DTB */
-	ret_value = fdt_check_for_valid_blob(primary_blob, pb_size);
+	ret_value = dtb_extn_check_for_valid_blob(primary_blob, pb_size);
 	if (FDT_ERR_QC_NOERROR != ret_value) goto exit;
 	/* overlay_blob should be a valid DTBO */
-	ret_value = fdt_check_for_valid_blob(overlay_blob, ob_size);
+	ret_value = dtb_extn_check_for_valid_blob(overlay_blob, ob_size);
 	if (FDT_ERR_QC_NOERROR != ret_value) goto exit;
 	/* mb_size has to be larger than ob_size and pb_size */
 	if ( (mb_size <= fdt_totalsize(overlay_blob)) || (mb_size <= fdt_totalsize(primary_blob)) ) {

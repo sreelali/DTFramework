@@ -33,7 +33,7 @@ Config  dtb_config = { 0, 0, 0 };
 ==========================================================================*/
 
 /**
- * fdt_check_for_valid_blob - Sanity check blob pointer
+ * dtb_extn_check_for_valid_blob - Sanity check blob pointer
  * @blob: pointer to the device tree blob
  * @bsize: size of blob
  *
@@ -42,7 +42,7 @@ Config  dtb_config = { 0, 0, 0 };
  * FdtLib calls: fdt_check_header()
  */
 int
-fdt_check_for_valid_blob (
+dtb_extn_check_for_valid_blob (
   const void  *blob,
   size_t      bsize
   )
@@ -120,7 +120,7 @@ exit:
 }
 
 /**
- * fdt_set_blob_handle - init DTB handle to point to blob in memory
+ * dtb_extn_set_blob_handle - init DTB handle to point to blob in memory
  * @blob: pointer to the device tree blob
  * @bsize: size of blob
  * @blob_id: index for requested blob
@@ -130,7 +130,7 @@ exit:
  * FdtLib calls: fdt_check_header()
  */
 int
-fdt_set_blob_handle (
+dtb_extn_set_blob_handle (
   const void  *blob,
   size_t      bsize,
   int         blob_id
@@ -147,13 +147,13 @@ fdt_set_blob_handle (
   BLOBID_CHECK (blob_id);
 
   /* sanity check dtb blob */
-  ret_value = fdt_check_for_valid_blob (blob, bsize);
+  ret_value = dtb_extn_check_for_valid_blob (blob, bsize);
 
   if (FDT_ERR_QC_NOERROR == ret_value) {
     /* blob passes checks... */
-    ret_value = fdt_get_node_handle (&node, blob, "/sw/boot");
+    ret_value = dtb_extn_get_node_handle (&node, blob, "/sw/boot");
     if (FDT_ERR_QC_NOERROR == ret_value) {
-      ret_value = fdt_get_uint32_prop_list (&node, "config", (void *)&dtb_config, sizeof (Config));
+      ret_value = dtb_extn_get_uint32_prop_list (&node, "config", (void *)&dtb_config, sizeof (Config));
       if (FDT_ERR_QC_NOERROR == ret_value) {
         SNPRINTF (
                   ibuffer,
@@ -176,7 +176,7 @@ fdt_set_blob_handle (
     PUTS (ibuffer);
   }
 
-  ret_value = CreatDtbHashTable (
+  ret_value = dtb_extn_CreatDtbHashTable (
                                  blob_id,
                                  (void *)blob
                                  );
@@ -184,14 +184,14 @@ fdt_set_blob_handle (
 }
 
 /**
- * fdt_get_blob_handle - return DTB handle
+ * dtb_extn_get_blob_handle - return DTB handle
  * @blob: pointer to the device tree blob
  * @blob_id: index for requested blob
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_blob_handle (
+dtb_extn_get_blob_handle (
   const void  **blob,
   int         blob_id
   )
@@ -225,14 +225,14 @@ fdt_get_blob_handle (
 }
 
 /**
- * fdt_get_blob_size - return size of blob in memory
+ * dtb_extn_get_blob_size - return size of blob in memory
  * @node: pointer to fdt_node_handle object
  * @size: pointer to uint32 to hold DTB size (in bytes)
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_blob_size (
+dtb_extn_get_blob_size (
   fdt_node_handle  *node,
   uint32_t         *size
   )
@@ -268,14 +268,14 @@ fdt_get_blob_size (
  */
 
 /**
- * fdt_init_root_handle_for_driver - return fdt_node_handle
+ * dtb_extn_init_root_handle_for_driver - return fdt_node_handle
  * @node: pointer to fdt_node_handle object
  * @blob: pointer to the device tree blob
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_init_root_handle_for_driver (
+dtb_extn_init_root_handle_for_driver (
   fdt_node_handle  *node,
   const void       *blob
   )
@@ -294,14 +294,14 @@ fdt_init_root_handle_for_driver (
 }
 
 /**
- * fdt_init_root_handle_for_driver_by_id - return fdt_node_handle
+ * dtb_extn_init_root_handle_for_driver_by_id - return fdt_node_handle
  * @node: pointer to fdt_node_handle object
  * @blob_id: index into blob handle array
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_init_root_handle_for_driver_by_id (
+dtb_extn_init_root_handle_for_driver_by_id (
   fdt_node_handle  *node,
   int              blob_id
   )
@@ -313,5 +313,5 @@ fdt_init_root_handle_for_driver_by_id (
     PUTS ((char *)__func__);
   }
 
-  return fdt_init_root_handle_for_driver (node, dtb_blob[blob_id]);
+  return dtb_extn_init_root_handle_for_driver (node, dtb_blob[blob_id]);
 }

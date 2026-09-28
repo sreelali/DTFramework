@@ -44,7 +44,7 @@
 #define MEMORY_ALLOC_ALIGN_MASK  7
 
 /*if enable ENABLE_DTB_PROFILING, we can analyse dtb hash algorithm performance
-when call fdt_get_node_handle it can print dtb search time , node used count,
+when call dtb_extn_get_node_handle it can print dtb search time , node used count,
 and node total access time, default disable*/
 #if defined (TARGET_UEFI) || defined (TARGET_XBL) || defined (PORT_Q6)
 // #define ENABLE_DTB_PROFILING
@@ -761,7 +761,7 @@ is_merge_dtb (
 #endif
 
 /**
- * fdt_get_node_handle - return node_handle
+ * dtb_extn_get_node_handle - return node_handle
  * @node: pointer to fdt_node_handle object
  * @blob: pointer to the device tree blob
  * @name: pointer to node name (string)
@@ -772,7 +772,7 @@ is_merge_dtb (
  *   int fdt_path_offset(const void *fdt, const char *path);
  */
 int
-fdt_get_node_handle (
+dtb_extn_get_node_handle (
   fdt_node_handle  *node,
   const void       *blob,
   char             *name
@@ -794,9 +794,9 @@ fdt_get_node_handle (
   PTR_CHECK (node);
   PTR_CHECK (name);
 
-  /* Include the fdt_get_blob_handle API feature here to make that API optional or obsolete*/
+  /* Include the dtb_extn_get_blob_handle API feature here to make that API optional or obsolete*/
   if (NULL == blob) {
-    ret_value = fdt_get_blob_handle (&blob, DEFAULT_BLOB_ID);
+    ret_value = dtb_extn_get_blob_handle (&blob, DEFAULT_BLOB_ID);
     if (ret_value != FDT_ERR_QC_NOERROR) {
       return ret_value;
     }
@@ -899,7 +899,7 @@ fdt_get_node_handle (
 }
 
 /**
- * fdt_get_phandle_node - return phandle fdt_node_handle
+ * dtb_extn_get_phandle_node - return phandle fdt_node_handle
  * @node: pointer to fdt_node_handle object
  * @phandle: phandle reference in blob
  * @pnode: pointer to fdt_node_handle for new phandle node
@@ -910,7 +910,7 @@ fdt_get_node_handle (
  *   int fdt_node_offset_by_phandle(const void *fdt, uint32_t phandle);
  */
 int
-fdt_get_phandle_node (
+dtb_extn_get_phandle_node (
   fdt_node_handle  *node,
   uint32_t         phandle,
   fdt_node_handle  *pnode
@@ -984,7 +984,7 @@ fdt_get_phandle_node (
 }
 
 /**
- * fdt_get_parent_node - return parent node fdt_node_handle
+ * dtb_extn_get_parent_node - return parent node fdt_node_handle
  * @node: pointer to fdt_node_handle object
  * @pnode: pointer to fdt_node_handle for new parent node
  *
@@ -994,7 +994,7 @@ fdt_get_phandle_node (
  *   int fdt_parent_offset(const void *fdt, int nodeoffset);
  */
 int
-fdt_get_parent_node (
+dtb_extn_get_parent_node (
   fdt_node_handle  *node,
   fdt_node_handle  *pnode
   )
@@ -1033,14 +1033,14 @@ fdt_get_parent_node (
 }
 
 /**
- * fdt_node_cmp - compare 2 fdt_node_handle_objects
+ * dtb_extn_node_cmp - compare 2 fdt_node_handle_objects
  * @node_a: pointer to fdt_node_handle object A
  * @node_b: pointer to fdt_node_handle object B
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_node_cmp (
+dtb_extn_node_cmp (
   fdt_node_handle  *node_a,
   fdt_node_handle  *node_b
   )
@@ -1072,14 +1072,14 @@ fdt_node_cmp (
 }
 
 /**
- * fdt_node_copy - copy fdt_node_handle_object
+ * dtb_extn_node_copy - copy fdt_node_handle_object
  * @dst: pointer to destination fdt_node_handle object
  * @src: pointer to source fdt_node_handle object
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_node_copy (
+dtb_extn_node_copy (
   fdt_node_handle  *dst,
   fdt_node_handle  *src
   )
@@ -1105,7 +1105,7 @@ fdt_node_copy (
 }
 
 /**
- * fdt_get_prop_values_size_of_node - return required buffer size to hold all properties of node
+ * dtb_extn_get_prop_values_size_of_node - return required buffer size to hold all properties of node
  * @node: pointer to fdt_node_handle object
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
@@ -1116,7 +1116,7 @@ fdt_node_copy (
  *   const void *fdt_getprop_by_offset(const void *fdt, int offset, const char **namep, int *lenp);
  */
 int
-fdt_get_prop_values_size_of_node (
+dtb_extn_get_prop_values_size_of_node (
   fdt_node_handle  *node,
   uint32_t         *size
   )
@@ -1165,7 +1165,7 @@ fdt_get_prop_values_size_of_node (
 }
 
 /**
- * fdt_get_prop_values_of_node - return packed buffer of all properties of node
+ * dtb_extn_get_prop_values_of_node - return packed buffer of all properties of node
  * @node: pointer to fdt_node_handle object
  * @format: required for endianess, [b|B] = string/byte,
  *                                  [h|H] = half-word (16),
@@ -1186,7 +1186,7 @@ fdt_get_prop_values_size_of_node (
  * NOTE: Must refer header info availble in DTBExtnLib.h for this API
  */
 int
-fdt_get_prop_values_of_node (
+dtb_extn_get_prop_values_of_node (
   fdt_node_handle  *node,
   char             *format,
   void             *packed_prop_values,
@@ -1337,7 +1337,7 @@ exit:
 }
 
 /**
- * fdt_get_prop_names_size_of_node - return required buffer size to hold all property names in node
+ * dtb_extn_get_prop_names_size_of_node - return required buffer size to hold all property names in node
  * @node: pointer to fdt_node_handle object
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
@@ -1348,7 +1348,7 @@ exit:
  *   const void *fdt_getprop_by_offset(const void *fdt, int offset, const char **namep, int *lenp);
  */
 int
-fdt_get_prop_names_size_of_node (
+dtb_extn_get_prop_names_size_of_node (
   fdt_node_handle  *node,
   uint32_t         *size
   )
@@ -1392,7 +1392,7 @@ fdt_get_prop_names_size_of_node (
 }
 
 /**
- * fdt_get_prop_names_of_node - return buffer of all property names in node
+ * dtb_extn_get_prop_names_of_node - return buffer of all property names in node
  * @node: pointer to fdt_node_handle object
  * @prop_names: buffer pointer to hold all property names
  * @size: pointer to uint32 to hold buffer size (in bytes)
@@ -1404,7 +1404,7 @@ fdt_get_prop_names_size_of_node (
  *   const void *fdt_getprop_by_offset(const void *fdt, int offset, const char **namep, int *lenp);
  */
 int
-fdt_get_prop_names_of_node (
+dtb_extn_get_prop_names_of_node (
   fdt_node_handle  *node,
   char             *prop_names,
   uint32_t         size
@@ -1472,7 +1472,7 @@ fdt_get_prop_names_of_node (
 }
 
 /**
- * fdt_get_count_of_subnodes - return count of all subnodes of node
+ * dtb_extn_get_count_of_subnodes - return count of all subnodes of node
  * @node: pointer to fdt_node_handle object
  * @count: pointer to uint32 to hold count of subnodes
  *
@@ -1482,7 +1482,7 @@ fdt_get_prop_names_of_node (
  *   macro: fdt_for_each_subnode(int, const void *, int)
  */
 int
-fdt_get_count_of_subnodes (
+dtb_extn_get_count_of_subnodes (
   fdt_node_handle  *node,
   uint32_t         *count
   )
@@ -1520,7 +1520,7 @@ fdt_get_count_of_subnodes (
 }
 
 /**
- * fdt_get_cache_of_subnodes - return cache of all subnodes of node
+ * dtb_extn_get_cache_of_subnodes - return cache of all subnodes of node
  * @node: pointer to fdt_node_handle object
  * @cache: pointer to fdt_node_handle array of size @count
  * @count: uint32 to hold count of subnodes
@@ -1537,7 +1537,7 @@ fdt_get_count_of_subnodes (
  *   macro: fdt_for_each_subnode(int, const void *, int)
  */
 int
-fdt_get_cache_of_subnodes (
+dtb_extn_get_cache_of_subnodes (
   fdt_node_handle  *node,
   fdt_node_handle  *cache,
   uint32_t         count
@@ -1585,7 +1585,7 @@ fdt_get_cache_of_subnodes (
 
  #ifdef ENABLE_DTB_PROFILING
   ets = __dtb_get_time_us ();
-  dtb_log ("fdt_get_cache_of_subnodes cost time[%d]", (ets-bts));
+  dtb_log ("dtb_extn_get_cache_of_subnodes cost time[%d]", (ets-bts));
   for (int i = 0; i < count; i++) {
     total_access_node = total_access_node + 1;
     memset (&name, 0, 128);
@@ -1603,7 +1603,7 @@ fdt_get_cache_of_subnodes (
 }
 
 /**
- * fdt_get_size_of_subnode_names - return size of subnode names
+ * dtb_extn_get_size_of_subnode_names - return size of subnode names
  * @node: pointer to fdt_node_handle object
  * @names: pointer to uint32_t array to hold sizes
  * @count: uint32 to hold count of array items
@@ -1615,7 +1615,7 @@ fdt_get_cache_of_subnodes (
  *   const char *fdt_get_name(const void *fdt, int nodeoffset, int *lenp);
  */
 int
-fdt_get_size_of_subnode_names (
+dtb_extn_get_size_of_subnode_names (
   fdt_node_handle  *node,
   uint32_t         *names,
   uint32_t         count
@@ -1670,7 +1670,7 @@ fdt_get_size_of_subnode_names (
 }
 
 /**
- * fdt_get_subnode_names - return buffer of all subnode names
+ * dtb_extn_get_subnode_names - return buffer of all subnode names
  * @node: pointer to fdt_node_handle object
  * @prop_names: buffer pointer to hold all subnode names
  * @size: pointer to uint32 to hold buffer size (in bytes)
@@ -1682,7 +1682,7 @@ fdt_get_size_of_subnode_names (
  *   const char *fdt_get_name(const void *fdt, int nodeoffset, int *lenp);
  */
 int
-fdt_get_subnode_names (
+dtb_extn_get_subnode_names (
   fdt_node_handle  *node,
   void             *names,
   uint32_t         size
@@ -2025,7 +2025,7 @@ print_all_dtb_nodes (
 #endif
 
 /**
- * CreatDtbHashTable - creat a dtb hash table
+ * dtb_extn_CreatDtbHashTable - creat a dtb hash table
  * @blob_id: current dtb blob id
  * @blob: current dtb blob address
  * note:it need extra memory store dtb hash_node ,each hash_node need 40 byte memory space
@@ -2034,7 +2034,7 @@ print_all_dtb_nodes (
  *
  */
 int
-CreatDtbHashTable (
+dtb_extn_CreatDtbHashTable (
   int         blob_id,
   const void  *blob
   )

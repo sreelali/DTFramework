@@ -48,7 +48,7 @@ typedef union dt_ptr_type {
 ==========================================================================*/
 
 /**
- * fdt_get_prop_size - return size of property value
+ * dtb_extn_get_prop_size - return size of property value
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @size: pointer to uint32 to hold buffer size (in bytes)
@@ -59,7 +59,7 @@ typedef union dt_ptr_type {
  *   const void *fdt_getprop(const void *fdt, int nodeoffset, const char *name, int *lenp);
  */
 int
-fdt_get_prop_size (
+dtb_extn_get_prop_size (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint32_t         *size
@@ -299,7 +299,7 @@ exit:
 }
 
 /**
- * fdt_get_uint8_prop_list - return uint8 list property values
+ * dtb_extn_get_uint8_prop_list - return uint8 list property values
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint8 list values
@@ -308,7 +308,7 @@ exit:
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint8_prop_list (
+dtb_extn_get_uint8_prop_list (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint8_t          *prop_list,
@@ -323,7 +323,7 @@ fdt_get_uint8_prop_list (
 }
 
 /**
- * fdt_get_uint8_prop - return uint8 property value
+ * dtb_extn_get_uint8_prop - return uint8 property value
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @value: pointer to uint8 to hold property value
@@ -331,7 +331,7 @@ fdt_get_uint8_prop_list (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint8_prop (
+dtb_extn_get_uint8_prop (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint8_t          *value
@@ -341,11 +341,11 @@ fdt_get_uint8_prop (
     PUTS ((char *)__func__);
   }
 
-  return fdt_get_uint8_prop_list (node, prop_name, value, 1);
+  return dtb_extn_get_uint8_prop_list (node, prop_name, value, 1);
 }
 
 /**
- * fdt_get_uint8_prop_list_slice - return slice of uint8 list property values
+ * dtb_extn_get_uint8_prop_list_slice - return slice of uint8 list property values
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint8 list values
@@ -355,7 +355,7 @@ fdt_get_uint8_prop (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint8_prop_list_slice (
+dtb_extn_get_uint8_prop_list_slice (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint8_t          *prop_list,
@@ -371,7 +371,7 @@ fdt_get_uint8_prop_list_slice (
 }
 
 /**
- * fdt_get_uint16_prop_list - return uint16 list property values
+ * dtb_extn_get_uint16_prop_list - return uint16 list property values
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint16 list values
@@ -380,7 +380,7 @@ fdt_get_uint8_prop_list_slice (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint16_prop_list (
+dtb_extn_get_uint16_prop_list (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint16_t         *prop_list,
@@ -395,7 +395,7 @@ fdt_get_uint16_prop_list (
 }
 
 /**
- * fdt_get_uint16_prop - return uint16 property value
+ * dtb_extn_get_uint16_prop - return uint16 property value
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @value: pointer to uint16 to hold property value
@@ -403,7 +403,7 @@ fdt_get_uint16_prop_list (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint16_prop (
+dtb_extn_get_uint16_prop (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint16_t         *value
@@ -413,11 +413,11 @@ fdt_get_uint16_prop (
     PUTS ((char *)__func__);
   }
 
-  return fdt_get_uint16_prop_list (node, prop_name, value, 2);
+  return dtb_extn_get_uint16_prop_list (node, prop_name, value, 2);
 }
 
 /**
- * fdt_get_uint16_prop_list_slice - return slice of uint16 list property values
+ * dtb_extn_get_uint16_prop_list_slice - return slice of uint16 list property values
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint16 list values
@@ -427,7 +427,7 @@ fdt_get_uint16_prop (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint16_prop_list_slice (
+dtb_extn_get_uint16_prop_list_slice (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint16_t         *prop_list,
@@ -443,7 +443,7 @@ fdt_get_uint16_prop_list_slice (
 }
 
 /**
- * fdt_get_uint32_prop_list - return uint32 list property values
+ * dtb_extn_get_uint32_prop_list - return uint32 list property values
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint32 list values
@@ -452,7 +452,7 @@ fdt_get_uint16_prop_list_slice (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint32_prop_list (
+dtb_extn_get_uint32_prop_list (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint32_t         *prop_list,
@@ -467,7 +467,7 @@ fdt_get_uint32_prop_list (
 }
 
 /**
- * fdt_get_uint32_prop - return uint32 property value
+ * dtb_extn_get_uint32_prop - return uint32 property value
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @value: pointer to uint32 to hold property value
@@ -475,7 +475,7 @@ fdt_get_uint32_prop_list (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint32_prop (
+dtb_extn_get_uint32_prop (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint32_t         *value
@@ -485,11 +485,11 @@ fdt_get_uint32_prop (
     PUTS ((char *)__func__);
   }
 
-  return fdt_get_uint32_prop_list (node, prop_name, value, 4);
+  return dtb_extn_get_uint32_prop_list (node, prop_name, value, 4);
 }
 
 /**
- * fdt_get_uint64_prop_list - return uint64 list property values
+ * dtb_extn_get_uint64_prop_list - return uint64 list property values
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint64 list values
@@ -498,7 +498,7 @@ fdt_get_uint32_prop (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint64_prop_list (
+dtb_extn_get_uint64_prop_list (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint64_t         *prop_list,
@@ -513,7 +513,7 @@ fdt_get_uint64_prop_list (
 }
 
 /**
- * fdt_get_uint64_prop - return uint64 property value
+ * dtb_extn_get_uint64_prop - return uint64 property value
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @value: pointer to uint64 to hold property value
@@ -521,7 +521,7 @@ fdt_get_uint64_prop_list (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint64_prop (
+dtb_extn_get_uint64_prop (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint64_t         *value
@@ -531,11 +531,11 @@ fdt_get_uint64_prop (
     PUTS ((char *)__func__);
   }
 
-  return fdt_get_uint64_prop_list (node, prop_name, value, 8);
+  return dtb_extn_get_uint64_prop_list (node, prop_name, value, 8);
 }
 
 /**
- * fdt_get_uint64_prop_list_slice - return slice of uint64 list property values
+ * dtb_extn_get_uint64_prop_list_slice - return slice of uint64 list property values
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint64 list values
@@ -545,7 +545,7 @@ fdt_get_uint64_prop (
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
-fdt_get_uint64_prop_list_slice (
+dtb_extn_get_uint64_prop_list_slice (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint64_t         *prop_list,
@@ -561,7 +561,7 @@ fdt_get_uint64_prop_list_slice (
 }
 
 /**
- * fdt_get_boolean_prop - return boolean property value
+ * dtb_extn_get_boolean_prop - return boolean property value
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @value: pointer to uint32 to hold property value
@@ -570,7 +570,7 @@ fdt_get_uint64_prop_list_slice (
  *
  */
 int
-fdt_get_boolean_prop (
+dtb_extn_get_boolean_prop (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint32_t         *value
@@ -580,11 +580,11 @@ fdt_get_boolean_prop (
     PUTS ((char *)__func__);
   }
 
-  return fdt_get_uint32_prop_list (node, prop_name, value, 4);
+  return dtb_extn_get_uint32_prop_list (node, prop_name, value, 4);
 }
 
 /**
- * fdt_get_bool_prop - return boolean property value
+ * dtb_extn_get_bool_prop - return boolean property value
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  *
@@ -593,7 +593,7 @@ fdt_get_boolean_prop (
  *
  */
 int
-fdt_get_bool_prop (
+dtb_extn_get_bool_prop (
   fdt_node_handle  *node,
   const char       *prop_name
   )
@@ -606,7 +606,7 @@ fdt_get_bool_prop (
 }
 
 /**
- * fdt_get_uint32_prop_list_slice - return slice of uint32 list property values
+ * dtb_extn_get_uint32_prop_list_slice - return slice of uint32 list property values
  * @node: pointer to fdt_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint32 list values
@@ -619,7 +619,7 @@ fdt_get_bool_prop (
  *               fdt32_to_cpu()
  */
 int
-fdt_get_uint32_prop_list_slice (
+dtb_extn_get_uint32_prop_list_slice (
   fdt_node_handle  *node,
   const char       *prop_name,
   uint32_t         *prop_list,
@@ -647,7 +647,7 @@ fdt_get_uint32_prop_list_slice (
  *   const struct fdt_property *fdt_get_property(const void *fdt, int nodeoffset, const char *name, int *lenp);
  */
 int
-fdt_get_string_prop_list (
+dtb_extn_get_string_prop_list (
   fdt_node_handle  *node,
   const char       *prop_name,
   char             *string_list,

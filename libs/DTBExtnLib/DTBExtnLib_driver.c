@@ -31,7 +31,7 @@
 ==========================================================================*/
 
 /**
- * fdt_get_next_node_handle_for_compatible - return node offset w/ compatible string
+ * dtb_extn_get_next_node_handle_for_compatible - return node offset w/ compatible string
  * @node: pointer to fdt_node_handle object
  * @compatible: pointer to compatible string to search for
  *
@@ -40,7 +40,7 @@
  * FdtLib calls:
  *   int fdt_node_offset_by_compatible(const void *fdt, int startoffset, const char *compatible);
  */
-int fdt_get_next_node_handle_for_compatible(fdt_node_handle *node, const char *compatible)
+int dtb_extn_get_next_node_handle_for_compatible(fdt_node_handle *node, const char *compatible)
 {
     int offset;                    /* FdtLib: return raw prop data */
     int ret_value = FDT_ERR_QC_NOERROR;
@@ -71,7 +71,7 @@ int fdt_get_next_node_handle_for_compatible(fdt_node_handle *node, const char *c
 }
 
 /**
- * fdt_get_name_index - return index of target
+ * dtb_extn_get_name_index - return index of target
 * @node: pointer to fdt_node_handle object
 * @pname: Name of string-list property
 * @tname: Target name in string-list property
@@ -82,7 +82,7 @@ int fdt_get_next_node_handle_for_compatible(fdt_node_handle *node, const char *c
 * FdtLib calls:
 * const struct fdt_property *fdt_get_property(const void *fdt, int nodeoffset, const char *name, int *lenp);
 */
-int fdt_get_name_index(fdt_node_handle *node, const char *pname, char *tname, int *index)
+int dtb_extn_get_name_index(fdt_node_handle *node, const char *pname, char *tname, int *index)
 {
     int len;                            /* FdtLib: return errors & size */
     const struct fdt_property *fdtp;    /* FdtLib: return raw prop data */
@@ -135,7 +135,7 @@ static int _fdt_get_size_code(fdt_node_handle *node, int *addr_code, int *size_c
 }
 
 /**
- * fdt_get_reg - return specific reg entry
+ * dtb_extn_get_reg - return specific reg entry
  * @node: pointer to fdt_node_handle object
  * @reg_name:  NULL or name of index in range to return
  * @reg_index: index of range to return
@@ -150,7 +150,7 @@ static int _fdt_get_size_code(fdt_node_handle *node, int *addr_code, int *size_c
  *               fdt32_to_cpu()
  *               fdt64_to_cpu()
  */
-int fdt_get_reg(fdt_node_handle *node,
+int dtb_extn_get_reg(fdt_node_handle *node,
                            char *reg_name,
                             int  reg_index,
                             int  addr_code,
@@ -222,7 +222,7 @@ int fdt_get_reg(fdt_node_handle *node,
 
     /* index into reg<> can be specified as a name or an index, name takes prioritiy */
     if (NULL != reg_name) {
-        ret_value = fdt_get_name_index(node, "reg-names", reg_name, &reg_index);
+        ret_value = dtb_extn_get_name_index(node, "reg-names", reg_name, &reg_index);
         if (ret_value) {
             if (dtb_config.verbose) {
                 SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "Reg[%a] not found[%d]",

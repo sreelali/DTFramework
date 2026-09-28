@@ -57,12 +57,12 @@ Enhanced DTB manipulation library providing comprehensive device tree operations
 #### Core Functionality Modules
 
 ##### 1. Blob Management (DTBExtnLib_blob.c)
-- `fdt_check_for_valid_blob()` - Validate DTB blob integrity
-- `fdt_set_blob_handle()` - Set blob handle
-- `fdt_get_blob_handle()` - Get blob handle
-- `fdt_get_blob_size()` - Get blob size
-- `fdt_init_root_handle_for_driver()` - Initialize root handle for driver
-- `fdt_init_root_handle_for_driver_by_id()` - Initialize root handle for driver by ID
+- `dtb_extn_check_for_valid_blob()` - Validate DTB blob integrity
+- `dtb_extn_set_blob_handle()` - Set blob handle
+- `dtb_extn_get_blob_handle()` - Get blob handle
+- `dtb_extn_get_blob_size()` - Get blob size
+- `dtb_extn_init_root_handle_for_driver()` - Initialize root handle for driver
+- `dtb_extn_init_root_handle_for_driver_by_id()` - Initialize root handle for driver by ID
 
 ##### 2. DTB Creation (DTBExtnLib_create-dtb.c)
 - `fdt_add_tree()` - Create a new empty device tree
@@ -74,33 +74,33 @@ Enhanced DTB manipulation library providing comprehensive device tree operations
 - `fdt_add_prop_list_string()` - Add string type property list
 
 ##### 3. Driver Functions (DTBExtnLib_driver.c)
-- `fdt_get_next_node_handle_for_compatible()` - Get next node handle by compatible property
-- `fdt_get_name_index()` - Get name index
-- `fdt_get_reg()` - Get reg property
+- `dtb_extn_get_next_node_handle_for_compatible()` - Get next node handle by compatible property
+- `dtb_extn_get_name_index()` - Get name index
+- `dtb_extn_get_reg()` - Get reg property
 
 ##### 4. Node Operations (DTBExtnLib_node.c)
-- `fdt_get_node_handle()` - Get node handle
-- `fdt_get_phandle_node()` - Get node by phandle
-- `fdt_get_parent_node()` - Get parent node
-- `fdt_node_cmp()` - Compare nodes
-- `fdt_node_copy()` - Copy node
-- `fdt_get_prop_values_size_of_node()` - Get node property values size
-- `fdt_get_prop_values_of_node()` - Get node property values
-- `fdt_get_count_of_subnodes()` - Get subnode count
-- `fdt_get_subnode_names()` - Get subnode names
-- `CreatDtbHashTable()` - Create DTB hash table for fast lookup
+- `dtb_extn_get_node_handle()` - Get node handle
+- `dtb_extn_get_phandle_node()` - Get node by phandle
+- `dtb_extn_get_parent_node()` - Get parent node
+- `dtb_extn_node_cmp()` - Compare nodes
+- `dtb_extn_node_copy()` - Copy node
+- `dtb_extn_get_prop_values_size_of_node()` - Get node property values size
+- `dtb_extn_get_prop_values_of_node()` - Get node property values
+- `dtb_extn_get_count_of_subnodes()` - Get subnode count
+- `dtb_extn_get_subnode_names()` - Get subnode names
+- `dtb_extn_CreatDtbHashTable()` - Create DTB hash table for fast lookup
 
 ##### 5. Overlay Merge (DTBExtnLib_overlay.c)
-- `fdt_merge_overlay()` - Merge primary DTB and overlay DTB
+- `dtb_extn_merge_overlay()` - Merge primary DTB and overlay DTB
 
 ##### 6. Property Operations (DTBExtnLib_prop.c)
-- `fdt_get_prop_size()` - Get property size
-- `fdt_get_uint8_prop()` / `fdt_get_uint8_prop_list()` - Get u8 properties
-- `fdt_get_uint16_prop()` / `fdt_get_uint16_prop_list()` - Get u16 properties
-- `fdt_get_uint32_prop()` / `fdt_get_uint32_prop_list()` - Get u32 properties
-- `fdt_get_uint64_prop()` / `fdt_get_uint64_prop_list()` - Get u64 properties
-- `fdt_get_boolean_prop()` / `fdt_get_bool_prop()` - Get boolean properties
-- `fdt_get_string_prop_list()` - Get string property list
+- `dtb_extn_get_prop_size()` - Get property size
+- `dtb_extn_get_uint8_prop()` / `dtb_extn_get_uint8_prop_list()` - Get u8 properties
+- `dtb_extn_get_uint16_prop()` / `dtb_extn_get_uint16_prop_list()` - Get u16 properties
+- `dtb_extn_get_uint32_prop()` / `dtb_extn_get_uint32_prop_list()` - Get u32 properties
+- `dtb_extn_get_uint64_prop()` / `dtb_extn_get_uint64_prop_list()` - Get u64 properties
+- `dtb_extn_get_boolean_prop()` / `dtb_extn_get_bool_prop()` - Get boolean properties
+- `dtb_extn_get_string_prop_list()` - Get string property list
 
 ### DTSelectLib - DT Selection Library
 
@@ -207,14 +207,14 @@ uint32_t value;
 int ret;
 
 // Get node handle
-ret = fdt_get_node_handle(&node, "/soc/device@0");
+ret = dtb_extn_get_node_handle(&node, "/soc/device@0");
 
 // Read u32 property
-ret = fdt_get_uint32_prop(&node, "reg", &value);
+ret = dtb_extn_get_uint32_prop(&node, "reg", &value);
 
 // Read string property
 char compatible[64];
-ret = fdt_get_string_prop_list(&node, "compatible", compatible, sizeof(compatible));
+ret = dtb_extn_get_string_prop_list(&node, "compatible", compatible, sizeof(compatible));
 ```
 
 #### Merging Overlay
@@ -228,7 +228,7 @@ void *merge_blob;      // Merged DTB
 size_t pb_size, ob_size, mb_size;
 
 // Merge overlay into primary DTB
-int ret = fdt_merge_overlay(primary_blob, pb_size, 
+int ret = dtb_extn_merge_overlay(primary_blob, pb_size,
                             overlay_blob, ob_size,
                             merge_blob, mb_size);
 ```
@@ -381,7 +381,7 @@ When `ENABLE_HASH_FOR_DTB` is defined, the library automatically creates a hash 
 - **Performance**: Dramatically reduces node search time, especially beneficial for large device trees
 - **Algorithm**: Uses DJB2 hash algorithm for fast hash computation
 - **Memory**: Requires additional memory (~40 bytes per node) to store hash table entries
-- **Automatic Creation**: Hash table is automatically built when calling `fdt_set_blob_handle()`
+- **Automatic Creation**: Hash table is automatically built when calling `dtb_extn_set_blob_handle()`
 - **Phandle Cache**: Also creates a phandle-to-node-offset cache for faster phandle lookups
 
 **Optional enhancements**:
@@ -397,7 +397,7 @@ size_t blob_size;
 int blob_id = 0;
 
 // Set blob handle - hash table is automatically created if ENABLE_HASH_FOR_DTB is defined
-int ret = fdt_set_blob_handle(dtb_blob, blob_size, blob_id);
+int ret = dtb_extn_set_blob_handle(dtb_blob, blob_size, blob_id);
 if (ret == FDT_ERR_QC_NOERROR) {
     // Blob handle set successfully
     // Hash table has been created automatically

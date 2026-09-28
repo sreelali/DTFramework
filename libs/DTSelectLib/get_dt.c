@@ -185,7 +185,7 @@ get_dt (
 
   if (soc_dtbo_size) {
     /* Apply SOC DTB Overlay */
-    return_status = fdt_merge_overlay ((const void *)base_dtb_ptr, base_dtb_size, (void *)soc_dtbo_ptr, soc_dtbo_size, (void *)base_dtb_ptr, base_dtb_size + soc_dtbo_size);
+    return_status = dtb_extn_merge_overlay ((const void *)base_dtb_ptr, base_dtb_size, (void *)soc_dtbo_ptr, soc_dtbo_size, (void *)base_dtb_ptr, base_dtb_size + soc_dtbo_size);
     if (return_status) {
       /* return error */
       goto exit;
@@ -193,7 +193,7 @@ get_dt (
 
     /* Need to update size for base DTB before we apply Platform overlay (if applied) */
     node.blob     = (const void *)base_dtb_ptr;
-    return_status = fdt_get_blob_size (&node, (uint32_t *)&base_dtb_size);
+    return_status = dtb_extn_get_blob_size (&node, (uint32_t *)&base_dtb_size);
     if (return_status) {
       goto exit;
     }
@@ -204,7 +204,7 @@ get_dt (
 
   if (plat_dtbo_size) {
     /* Apply Platform DTB Overlay */
-    return_status = fdt_merge_overlay ((const void *)base_dtb_ptr, base_dtb_size, (void *)plat_dtbo_ptr, plat_dtbo_size, (void *)base_dtb_ptr, total_blob_size);
+    return_status = dtb_extn_merge_overlay ((const void *)base_dtb_ptr, base_dtb_size, (void *)plat_dtbo_ptr, plat_dtbo_size, (void *)base_dtb_ptr, total_blob_size);
     if (return_status) {
       /* return error */
       goto exit;
@@ -355,7 +355,7 @@ get_dt (
     }
 
     /* Apply SOC DTB Overlay */
-    return_status = fdt_merge_overlay ((const void *)base_dtb_ptr, base_dtb_size, (void *)soc_dtbo_ptr, soc_dtbo_size, (void *)base_dtb_ptr, base_dtb_size + soc_dtbo_size);
+    return_status = dtb_extn_merge_overlay ((const void *)base_dtb_ptr, base_dtb_size, (void *)soc_dtbo_ptr, soc_dtbo_size, (void *)base_dtb_ptr, base_dtb_size + soc_dtbo_size);
     if (return_status) {
       /* return error */
       goto exit;
@@ -363,7 +363,7 @@ get_dt (
 
     /* Need to update size for base DTB before we apply Platform overlay (if applied) */
     node.blob     = (const void *)base_dtb_ptr;
-    return_status = fdt_get_blob_size (&node, (uint32_t *)&base_dtb_size);
+    return_status = dtb_extn_get_blob_size (&node, (uint32_t *)&base_dtb_size);
     if (return_status) {
       goto exit;
     }
@@ -395,7 +395,7 @@ get_dt (
     }
 
     /* Apply Platform DTB Overlay */
-    return_status = fdt_merge_overlay ((const void *)base_dtb_ptr, base_dtb_size, (void *)plat_dtbo_ptr, plat_dtbo_size, (void *)base_dtb_ptr, total_blob_size);
+    return_status = dtb_extn_merge_overlay ((const void *)base_dtb_ptr, base_dtb_size, (void *)plat_dtbo_ptr, plat_dtbo_size, (void *)base_dtb_ptr, total_blob_size);
     if (return_status) {
       /* return error */
       goto exit;
