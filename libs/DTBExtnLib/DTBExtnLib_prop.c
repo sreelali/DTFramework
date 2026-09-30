@@ -49,7 +49,7 @@ typedef union dt_ptr_type {
 
 /**
  * dtb_extn_get_prop_size - return size of property value
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
@@ -60,7 +60,7 @@ typedef union dt_ptr_type {
  */
 int
 dtb_extn_get_prop_size (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint32_t         *size
   )
@@ -107,7 +107,7 @@ dtb_extn_get_prop_size (
 
 /**
  * _fdt_get_uintX_prop_list - return uintX list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uintX list values
  * @size: buffer size (in bytes)
@@ -125,7 +125,7 @@ dtb_extn_get_prop_size (
  */
 static int
 _fdt_get_uintX_prop_list (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   void             *prop_list,
   uint32_t         size,
@@ -300,7 +300,7 @@ exit:
 
 /**
  * dtb_extn_get_uint8_prop_list - return uint8 list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint8 list values
  * @size: buffer size (in bytes)
@@ -309,7 +309,7 @@ exit:
  */
 int
 dtb_extn_get_uint8_prop_list (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint8_t          *prop_list,
   uint32_t         size
@@ -324,7 +324,7 @@ dtb_extn_get_uint8_prop_list (
 
 /**
  * dtb_extn_get_uint8_prop - return uint8 property value
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @value: pointer to uint8 to hold property value
  *
@@ -332,7 +332,7 @@ dtb_extn_get_uint8_prop_list (
  */
 int
 dtb_extn_get_uint8_prop (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint8_t          *value
   )
@@ -346,7 +346,7 @@ dtb_extn_get_uint8_prop (
 
 /**
  * dtb_extn_get_uint8_prop_list_slice - return slice of uint8 list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint8 list values
  * @index: starting index to extract
@@ -356,7 +356,7 @@ dtb_extn_get_uint8_prop (
  */
 int
 dtb_extn_get_uint8_prop_list_slice (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint8_t          *prop_list,
   uint32_t         index,
@@ -372,7 +372,7 @@ dtb_extn_get_uint8_prop_list_slice (
 
 /**
  * dtb_extn_get_uint16_prop_list - return uint16 list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint16 list values
  * @size: buffer size (in bytes)
@@ -381,7 +381,7 @@ dtb_extn_get_uint8_prop_list_slice (
  */
 int
 dtb_extn_get_uint16_prop_list (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint16_t         *prop_list,
   uint32_t         size
@@ -396,7 +396,7 @@ dtb_extn_get_uint16_prop_list (
 
 /**
  * dtb_extn_get_uint16_prop - return uint16 property value
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @value: pointer to uint16 to hold property value
  *
@@ -404,7 +404,7 @@ dtb_extn_get_uint16_prop_list (
  */
 int
 dtb_extn_get_uint16_prop (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint16_t         *value
   )
@@ -418,7 +418,7 @@ dtb_extn_get_uint16_prop (
 
 /**
  * dtb_extn_get_uint16_prop_list_slice - return slice of uint16 list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint16 list values
  * @index: starting index to extract
@@ -428,7 +428,7 @@ dtb_extn_get_uint16_prop (
  */
 int
 dtb_extn_get_uint16_prop_list_slice (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint16_t         *prop_list,
   uint32_t         index,
@@ -444,7 +444,7 @@ dtb_extn_get_uint16_prop_list_slice (
 
 /**
  * dtb_extn_get_uint32_prop_list - return uint32 list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint32 list values
  * @size: buffer size (in bytes)
@@ -453,7 +453,7 @@ dtb_extn_get_uint16_prop_list_slice (
  */
 int
 dtb_extn_get_uint32_prop_list (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint32_t         *prop_list,
   uint32_t         size
@@ -468,7 +468,7 @@ dtb_extn_get_uint32_prop_list (
 
 /**
  * dtb_extn_get_uint32_prop - return uint32 property value
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @value: pointer to uint32 to hold property value
  *
@@ -476,7 +476,7 @@ dtb_extn_get_uint32_prop_list (
  */
 int
 dtb_extn_get_uint32_prop (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint32_t         *value
   )
@@ -490,7 +490,7 @@ dtb_extn_get_uint32_prop (
 
 /**
  * dtb_extn_get_uint64_prop_list - return uint64 list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint64 list values
  * @size: buffer size (in bytes)
@@ -499,7 +499,7 @@ dtb_extn_get_uint32_prop (
  */
 int
 dtb_extn_get_uint64_prop_list (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint64_t         *prop_list,
   uint32_t         size
@@ -514,7 +514,7 @@ dtb_extn_get_uint64_prop_list (
 
 /**
  * dtb_extn_get_uint64_prop - return uint64 property value
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @value: pointer to uint64 to hold property value
  *
@@ -522,7 +522,7 @@ dtb_extn_get_uint64_prop_list (
  */
 int
 dtb_extn_get_uint64_prop (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint64_t         *value
   )
@@ -536,7 +536,7 @@ dtb_extn_get_uint64_prop (
 
 /**
  * dtb_extn_get_uint64_prop_list_slice - return slice of uint64 list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint64 list values
  * @index: starting index to extract
@@ -546,7 +546,7 @@ dtb_extn_get_uint64_prop (
  */
 int
 dtb_extn_get_uint64_prop_list_slice (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint64_t         *prop_list,
   uint32_t         index,
@@ -562,7 +562,7 @@ dtb_extn_get_uint64_prop_list_slice (
 
 /**
  * dtb_extn_get_boolean_prop - return boolean property value
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @value: pointer to uint32 to hold property value
  *
@@ -571,7 +571,7 @@ dtb_extn_get_uint64_prop_list_slice (
  */
 int
 dtb_extn_get_boolean_prop (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint32_t         *value
   )
@@ -585,7 +585,7 @@ dtb_extn_get_boolean_prop (
 
 /**
  * dtb_extn_get_bool_prop - return boolean property value
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  *
  * The length for Boolean property in Device Tree Blob is 0x0.
@@ -594,7 +594,7 @@ dtb_extn_get_boolean_prop (
  */
 int
 dtb_extn_get_bool_prop (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name
   )
 {
@@ -607,7 +607,7 @@ dtb_extn_get_bool_prop (
 
 /**
  * dtb_extn_get_uint32_prop_list_slice - return slice of uint32 list property values
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @prop_list: buffer pointer to hold uint32 list values
  * @index: starting index to extract
@@ -620,7 +620,7 @@ dtb_extn_get_bool_prop (
  */
 int
 dtb_extn_get_uint32_prop_list_slice (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   uint32_t         *prop_list,
   uint32_t         index,
@@ -635,8 +635,8 @@ dtb_extn_get_uint32_prop_list_slice (
 }
 
 /**
- * fdt_get_string_list - return string list property values
- * @node: pointer to fdt_node_handle object
+ * dtb_extn_get_string_prop_list - return string list property values
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_name: property name
  * @string_list: buffer pointer to hold string list values
  * @size: buffer size (in bytes)
@@ -648,7 +648,7 @@ dtb_extn_get_uint32_prop_list_slice (
  */
 int
 dtb_extn_get_string_prop_list (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const char       *prop_name,
   char             *string_list,
   uint32_t         size

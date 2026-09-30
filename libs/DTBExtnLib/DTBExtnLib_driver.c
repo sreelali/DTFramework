@@ -32,7 +32,7 @@
 
 /**
  * dtb_extn_get_next_node_handle_for_compatible - return node offset w/ compatible string
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @compatible: pointer to compatible string to search for
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
@@ -40,7 +40,7 @@
  * FdtLib calls:
  *   int fdt_node_offset_by_compatible(const void *fdt, int startoffset, const char *compatible);
  */
-int dtb_extn_get_next_node_handle_for_compatible(fdt_node_handle *node, const char *compatible)
+int dtb_extn_get_next_node_handle_for_compatible(dtb_extn_node_handle *node, const char *compatible)
 {
     int offset;                    /* FdtLib: return raw prop data */
     int ret_value = FDT_ERR_QC_NOERROR;
@@ -72,7 +72,7 @@ int dtb_extn_get_next_node_handle_for_compatible(fdt_node_handle *node, const ch
 
 /**
  * dtb_extn_get_name_index - return index of target
-* @node: pointer to fdt_node_handle object
+* @node: pointer to dtb_extn_node_handle object
 * @pname: Name of string-list property
 * @tname: Target name in string-list property
 * @index: (return) index of target in list
@@ -82,7 +82,7 @@ int dtb_extn_get_next_node_handle_for_compatible(fdt_node_handle *node, const ch
 * FdtLib calls:
 * const struct fdt_property *fdt_get_property(const void *fdt, int nodeoffset, const char *name, int *lenp);
 */
-int dtb_extn_get_name_index(fdt_node_handle *node, const char *pname, char *tname, int *index)
+int dtb_extn_get_name_index(dtb_extn_node_handle *node, const char *pname, char *tname, int *index)
 {
     int len;                            /* FdtLib: return errors & size */
     const struct fdt_property *fdtp;    /* FdtLib: return raw prop data */
@@ -129,14 +129,14 @@ exit:
 	return ret_value;
 }
 
-static int _fdt_get_size_code(fdt_node_handle *node, int *addr_code, int *size_code)
+static int _dtb_extn_get_size_code(dtb_extn_node_handle *node, int *addr_code, int *size_code)
 {
     return -FDT_ERR_QC_NOTSUPPORTED;
 }
 
 /**
  * dtb_extn_get_reg - return specific reg entry
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @reg_name:  NULL or name of index in range to return
  * @reg_index: index of range to return
  * @addr_code: indicate address size [-1..2]
@@ -150,7 +150,7 @@ static int _fdt_get_size_code(fdt_node_handle *node, int *addr_code, int *size_c
  *               fdt32_to_cpu()
  *               fdt64_to_cpu()
  */
-int dtb_extn_get_reg(fdt_node_handle *node,
+int dtb_extn_get_reg(dtb_extn_node_handle *node,
                            char *reg_name,
                             int  reg_index,
                             int  addr_code,
@@ -180,7 +180,7 @@ int dtb_extn_get_reg(fdt_node_handle *node,
 
     /* valid #address_cells and #size_cells values required to parse reg<> property */
     if ( (SIZE_BLOB == addr_code) || (SIZE_BLOB == size_code) ) {
-        ret_value = _fdt_get_size_code(node, &addr_code, &size_code);
+        ret_value = _dtb_extn_get_size_code(node, &addr_code, &size_code);
         if (ret_value) {
             if (dtb_config.verbose) {
                 SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "Reg sizes not found[%d]", ret_value);

@@ -63,7 +63,7 @@ and node total access time, default disable*/
 #endif
 
 typedef struct hash_node {
-  fdt_node_handle     node;
+  dtb_extn_node_handle     node;
   uint64_t            node_name_hash_value;
   struct hash_node    *next;
  #ifdef ENABLE_DOUBLE_HASH_FOR_DTB
@@ -762,7 +762,7 @@ is_merge_dtb (
 
 /**
  * dtb_extn_get_node_handle - return node_handle
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @blob: pointer to the device tree blob
  * @name: pointer to node name (string)
  *
@@ -773,7 +773,7 @@ is_merge_dtb (
  */
 int
 dtb_extn_get_node_handle (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const void       *blob,
   char             *name
   )
@@ -899,10 +899,10 @@ dtb_extn_get_node_handle (
 }
 
 /**
- * dtb_extn_get_phandle_node - return phandle fdt_node_handle
- * @node: pointer to fdt_node_handle object
+ * dtb_extn_get_phandle_node - return phandle dtb_extn_node_handle
+ * @node: pointer to dtb_extn_node_handle object
  * @phandle: phandle reference in blob
- * @pnode: pointer to fdt_node_handle for new phandle node
+ * @pnode: pointer to dtb_extn_node_handle for new phandle node
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  *
@@ -911,9 +911,9 @@ dtb_extn_get_node_handle (
  */
 int
 dtb_extn_get_phandle_node (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   uint32_t         phandle,
-  fdt_node_handle  *pnode
+  dtb_extn_node_handle  *pnode
   )
 {
   int  offset    = 0;                                           /* FdtLib: return offset value */
@@ -984,9 +984,9 @@ dtb_extn_get_phandle_node (
 }
 
 /**
- * dtb_extn_get_parent_node - return parent node fdt_node_handle
- * @node: pointer to fdt_node_handle object
- * @pnode: pointer to fdt_node_handle for new parent node
+ * dtb_extn_get_parent_node - return parent node dtb_extn_node_handle
+ * @node: pointer to dtb_extn_node_handle object
+ * @pnode: pointer to dtb_extn_node_handle for new parent node
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  *
@@ -995,8 +995,8 @@ dtb_extn_get_phandle_node (
  */
 int
 dtb_extn_get_parent_node (
-  fdt_node_handle  *node,
-  fdt_node_handle  *pnode
+  dtb_extn_node_handle  *node,
+  dtb_extn_node_handle  *pnode
   )
 {
   int  offset;                                                  /* FdtLib: return offset value */
@@ -1033,16 +1033,16 @@ dtb_extn_get_parent_node (
 }
 
 /**
- * dtb_extn_node_cmp - compare 2 fdt_node_handle_objects
- * @node_a: pointer to fdt_node_handle object A
- * @node_b: pointer to fdt_node_handle object B
+ * dtb_extn_node_cmp - compare 2 dtb_extn_node_handle_objects
+ * @node_a: pointer to dtb_extn_node_handle object A
+ * @node_b: pointer to dtb_extn_node_handle object B
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
 dtb_extn_node_cmp (
-  fdt_node_handle  *node_a,
-  fdt_node_handle  *node_b
+  dtb_extn_node_handle  *node_a,
+  dtb_extn_node_handle  *node_b
   )
 {
   int  ret_value = FDT_ERR_QC_NOERROR;
@@ -1072,16 +1072,16 @@ dtb_extn_node_cmp (
 }
 
 /**
- * dtb_extn_node_copy - copy fdt_node_handle_object
- * @dst: pointer to destination fdt_node_handle object
- * @src: pointer to source fdt_node_handle object
+ * dtb_extn_node_copy - copy dtb_extn_node_handle_object
+ * @dst: pointer to destination dtb_extn_node_handle object
+ * @src: pointer to source dtb_extn_node_handle object
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
 dtb_extn_node_copy (
-  fdt_node_handle  *dst,
-  fdt_node_handle  *src
+  dtb_extn_node_handle  *dst,
+  dtb_extn_node_handle  *src
   )
 {
   int  ret_value = FDT_ERR_QC_NOERROR;
@@ -1106,7 +1106,7 @@ dtb_extn_node_copy (
 
 /**
  * dtb_extn_get_prop_values_size_of_node - return required buffer size to hold all properties of node
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
@@ -1117,7 +1117,7 @@ dtb_extn_node_copy (
  */
 int
 dtb_extn_get_prop_values_size_of_node (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   uint32_t         *size
   )
 {
@@ -1166,7 +1166,7 @@ dtb_extn_get_prop_values_size_of_node (
 
 /**
  * dtb_extn_get_prop_values_of_node - return packed buffer of all properties of node
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @format: required for endianess, [b|B] = string/byte,
  *                                  [h|H] = half-word (16),
  *                                  [w|W] = word (32),
@@ -1187,7 +1187,7 @@ dtb_extn_get_prop_values_size_of_node (
  */
 int
 dtb_extn_get_prop_values_of_node (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   char             *format,
   void             *packed_prop_values,
   uint32_t         size
@@ -1338,7 +1338,7 @@ exit:
 
 /**
  * dtb_extn_get_prop_names_size_of_node - return required buffer size to hold all property names in node
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
@@ -1349,7 +1349,7 @@ exit:
  */
 int
 dtb_extn_get_prop_names_size_of_node (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   uint32_t         *size
   )
 {
@@ -1393,7 +1393,7 @@ dtb_extn_get_prop_names_size_of_node (
 
 /**
  * dtb_extn_get_prop_names_of_node - return buffer of all property names in node
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_names: buffer pointer to hold all property names
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
@@ -1405,7 +1405,7 @@ dtb_extn_get_prop_names_size_of_node (
  */
 int
 dtb_extn_get_prop_names_of_node (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   char             *prop_names,
   uint32_t         size
   )
@@ -1473,7 +1473,7 @@ dtb_extn_get_prop_names_of_node (
 
 /**
  * dtb_extn_get_count_of_subnodes - return count of all subnodes of node
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @count: pointer to uint32 to hold count of subnodes
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
@@ -1483,7 +1483,7 @@ dtb_extn_get_prop_names_of_node (
  */
 int
 dtb_extn_get_count_of_subnodes (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   uint32_t         *count
   )
 {
@@ -1521,13 +1521,13 @@ dtb_extn_get_count_of_subnodes (
 
 /**
  * dtb_extn_get_cache_of_subnodes - return cache of all subnodes of node
- * @node: pointer to fdt_node_handle object
- * @cache: pointer to fdt_node_handle array of size @count
+ * @node: pointer to dtb_extn_node_handle object
+ * @cache: pointer to dtb_extn_node_handle array of size @count
  * @count: uint32 to hold count of subnodes
  *
  * Performance Impact: This API is added specifically to address a
  *                     known performance issue.  When a node has sub-nodes
- *                     this API returns an array of fdt_node_handles
+ *                     this API returns an array of dtb_extn_node_handles
  *                     with the DTB offset for each sub-node, so no string
  *                     lookup of the sub-node is required.
  *
@@ -1538,8 +1538,8 @@ dtb_extn_get_count_of_subnodes (
  */
 int
 dtb_extn_get_cache_of_subnodes (
-  fdt_node_handle  *node,
-  fdt_node_handle  *cache,
+  dtb_extn_node_handle  *node,
+  dtb_extn_node_handle  *cache,
   uint32_t         count
   )
 {
@@ -1604,7 +1604,7 @@ dtb_extn_get_cache_of_subnodes (
 
 /**
  * dtb_extn_get_size_of_subnode_names - return size of subnode names
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @names: pointer to uint32_t array to hold sizes
  * @count: uint32 to hold count of array items
  *
@@ -1616,7 +1616,7 @@ dtb_extn_get_cache_of_subnodes (
  */
 int
 dtb_extn_get_size_of_subnode_names (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   uint32_t         *names,
   uint32_t         count
   )
@@ -1671,7 +1671,7 @@ dtb_extn_get_size_of_subnode_names (
 
 /**
  * dtb_extn_get_subnode_names - return buffer of all subnode names
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @prop_names: buffer pointer to hold all subnode names
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
@@ -1683,7 +1683,7 @@ dtb_extn_get_size_of_subnode_names (
  */
 int
 dtb_extn_get_subnode_names (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   void             *names,
   uint32_t         size
   )

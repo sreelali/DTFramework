@@ -65,13 +65,13 @@ Enhanced DTB manipulation library providing comprehensive device tree operations
 - `dtb_extn_init_root_handle_for_driver_by_id()` - Initialize root handle for driver by ID
 
 ##### 2. DTB Creation (DTBExtnLib_create-dtb.c)
-- `fdt_add_tree()` - Create a new empty device tree
-- `fdt_add_node()` - Create a new node
-- `fdt_add_prop_list_u8()` - Add u8 type property list
-- `fdt_add_prop_list_u16()` - Add u16 type property list
-- `fdt_add_prop_list_u32()` - Add u32 type property list
-- `fdt_add_prop_list_u64()` - Add u64 type property list
-- `fdt_add_prop_list_string()` - Add string type property list
+- `dtb_extn_add_tree()` - Create a new empty device tree
+- `dtb_extn_add_node()` - Create a new node
+- `dtb_extn_add_prop_list_u8()` - Add u8 type property list
+- `dtb_extn_add_prop_list_u16()` - Add u16 type property list
+- `dtb_extn_add_prop_list_u32()` - Add u32 type property list
+- `dtb_extn_add_prop_list_u64()` - Add u64 type property list
+- `dtb_extn_add_prop_list_string()` - Add string type property list
 
 ##### 3. Driver Functions (DTBExtnLib_driver.c)
 - `dtb_extn_get_next_node_handle_for_compatible()` - Get next node handle by compatible property
@@ -180,21 +180,21 @@ Add `inc/` and `libs/DTSelectLib/` directories to your compiler's include path a
 ```c
 #include "create-dtb-apis.h"
 
-fdt_node_handle node;
+dtb_extn_node_handle node;
 int offset;
 
 // Create a new device tree with 4096 bytes
-fdt_add_tree(&node, 4096);
+dtb_extn_add_tree(&node, 4096);
 
 // Add a new node
-fdt_add_node(&node, "/soc/device@0", &offset);
+dtb_extn_add_node(&node, "/soc/device@0", &offset);
 
 // Add properties
 uint32_t reg_values[] = {0x1000, 0x100};
-fdt_add_prop_list_u32(&node, "reg", reg_values, 2);
+dtb_extn_add_prop_list_u32(&node, "reg", reg_values, 2);
 
 char *compatible = "vendor,device";
-fdt_add_prop_list_string(&node, "compatible", compatible, strlen(compatible) + 1);
+dtb_extn_add_prop_list_string(&node, "compatible", compatible, strlen(compatible) + 1);
 ```
 
 #### Reading Device Tree Properties
@@ -202,7 +202,7 @@ fdt_add_prop_list_string(&node, "compatible", compatible, strlen(compatible) + 1
 ```c
 #include "DTBExtnLib.h"
 
-fdt_node_handle node;
+dtb_extn_node_handle node;
 uint32_t value;
 int ret;
 

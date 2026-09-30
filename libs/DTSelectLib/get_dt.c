@@ -66,7 +66,7 @@ get_dt (
   base_dtb_ptr     = 0;
   dt_select_handle = 0;
   total_blob_size  = 0;
-  fdt_node_handle  node;
+  dtb_extn_node_handle  node;
 
   node.blob     = 0x0;
   node.offset   = 0x0;
@@ -274,7 +274,7 @@ get_dt (
   base_dtb_ptr     = 0;
   dt_select_handle = 0;
   total_blob_size  = 0;
-  fdt_node_handle  node;
+  dtb_extn_node_handle  node;
 
   node.blob     = 0x0;
   node.offset   = 0x0;

@@ -32,7 +32,7 @@
 ==========================================================================*/
 
 /**
- * fdt_add_tree -	Create empty tree in memory
+ * dtb_extn_add_tree -	Create empty tree in memory
  * @node:			node handle pointer, node->blob must be populated by caller
  * @size:			size of buffer for new tree
  *
@@ -41,7 +41,7 @@
  * FdtLib calls:
  * 		fdt_create_empty_tree() 
  */
-int fdt_add_tree(fdt_node_handle *node, int size)
+int dtb_extn_add_tree(dtb_extn_node_handle *node, int size)
 {
     int ret_value;
 
@@ -55,7 +55,7 @@ int fdt_add_tree(fdt_node_handle *node, int size)
 }
 
 /**
- * fdt_add_node -	Add node to new tree in memory
+ * dtb_extn_add_node -	Add node to new tree in memory
  * @node:			node handle pointer
  * @path:			name of node to add
  * @offset:			offset of newly created node
@@ -65,7 +65,7 @@ int fdt_add_tree(fdt_node_handle *node, int size)
  * FdtLib calls:
  * 		fdt_add_subnode() 
  */
-int fdt_add_node(fdt_node_handle *node, char *path, int *offset)
+int dtb_extn_add_node(dtb_extn_node_handle *node, char *path, int *offset)
 {
     int ret_value; 
     
@@ -94,7 +94,7 @@ exit:
 }
 
 /**
- * fdt_add_prop_list_u8 - Add u8 prop_list to new tree in memory
+ * dtb_extn_add_prop_list_u8 - Add u8 prop_list to new tree in memory
  * @node:			      node handle pointer
  * @prop_name:			  name of property to add
  * @val:			      u8 array of values to add
@@ -105,7 +105,7 @@ exit:
  * FdtLib calls:
  * 		fdt_setprop() 
  */
-int fdt_add_prop_list_u8(fdt_node_handle *node, char *prop_name, uint8_t *val, uint32_t count)
+int dtb_extn_add_prop_list_u8(dtb_extn_node_handle *node, char *prop_name, uint8_t *val, uint32_t count)
 {
     int ret_value;
 
@@ -118,7 +118,7 @@ int fdt_add_prop_list_u8(fdt_node_handle *node, char *prop_name, uint8_t *val, u
 }
 
 /**
- * fdt_add_prop_list_u16 - Add u16 prop_list to new tree in memory
+ * dtb_extn_add_prop_list_u16 - Add u16 prop_list to new tree in memory
  * @node:			       node handle pointer
  * @prop_name:			   name of property to add
  * @val:			       u16 array of values to add
@@ -129,7 +129,7 @@ int fdt_add_prop_list_u8(fdt_node_handle *node, char *prop_name, uint8_t *val, u
  * FdtLib calls:
  * 		fdt_setprop() 
  */
-int fdt_add_prop_list_u16(fdt_node_handle *node, char *prop_name, uint16_t *val, uint32_t count)
+int dtb_extn_add_prop_list_u16(dtb_extn_node_handle *node, char *prop_name, uint16_t *val, uint32_t count)
 {
     int ret_value;
 
@@ -147,7 +147,7 @@ int fdt_add_prop_list_u16(fdt_node_handle *node, char *prop_name, uint16_t *val,
 }
 
 /**
- * fdt_add_prop_list_u32 - Add u32 prop_list to new tree in memory
+ * dtb_extn_add_prop_list_u32 - Add u32 prop_list to new tree in memory
  * @node:			       node handle pointer
  * @prop_name:			   name of property to add
  * @val:			       u32 array of values to add
@@ -158,7 +158,7 @@ int fdt_add_prop_list_u16(fdt_node_handle *node, char *prop_name, uint16_t *val,
  * FdtLib calls:
  * 		fdt_setprop() 
  */
-int fdt_add_prop_list_u32(fdt_node_handle *node, char *prop_name, uint32_t *val, uint32_t count)
+int dtb_extn_add_prop_list_u32(dtb_extn_node_handle *node, char *prop_name, uint32_t *val, uint32_t count)
 {
     int ret_value;
 
@@ -176,7 +176,7 @@ int fdt_add_prop_list_u32(fdt_node_handle *node, char *prop_name, uint32_t *val,
 }
 
 /**
- * fdt_add_prop_list_u64 - Add u64 prop_list to new tree in memory
+ * dtb_extn_add_prop_list_u64 - Add u64 prop_list to new tree in memory
  * @node:			       node handle pointer
  * @prop_name:			   name of property to add
  * @val:			       u64 array of values to add
@@ -187,7 +187,7 @@ int fdt_add_prop_list_u32(fdt_node_handle *node, char *prop_name, uint32_t *val,
  * FdtLib calls:
  * 		fdt_setprop() 
  */
-int fdt_add_prop_list_u64(fdt_node_handle *node, char *prop_name, uint64_t *val, uint32_t count)
+int dtb_extn_add_prop_list_u64(dtb_extn_node_handle *node, char *prop_name, uint64_t *val, uint32_t count)
 {
     int ret_value;
 
@@ -205,7 +205,7 @@ int fdt_add_prop_list_u64(fdt_node_handle *node, char *prop_name, uint64_t *val,
 }
 
 /**
- * fdt_add_prop_list_string - Add string prop_list to new tree in memory
+ * dtb_extn_add_prop_list_string - Add string prop_list to new tree in memory
  * @node:			          node handle pointer
  * @prop_name:			      name of property to add
  * @val:			          array of string values to add
@@ -216,7 +216,7 @@ int fdt_add_prop_list_u64(fdt_node_handle *node, char *prop_name, uint64_t *val,
  * FdtLib calls:
  * 		fdt_setprop() 
  */
-int fdt_add_prop_list_string(fdt_node_handle *node, char *prop_name, char *val, uint32_t count)
+int dtb_extn_add_prop_list_string(dtb_extn_node_handle *node, char *prop_name, char *val, uint32_t count)
 {
     int ret_value;
 

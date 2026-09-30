@@ -144,7 +144,7 @@ typedef struct {
    this algorithm will need to determine for  selecting best candidates for DTB and DTBO(s).
 */
 typedef struct {
-  fdt_node_handle    node;
+  dtb_extn_node_handle    node;
   size_t             device_tree_blob_size;
   enum blob_type     device_tree_type;
   uint16_t           DT_chipinfo_selected[MAX_CHIPINFO_SIZE];

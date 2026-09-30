@@ -137,7 +137,7 @@ dtb_extn_set_blob_handle (
   )
 {
   int              ret_value;
-  fdt_node_handle  node;
+  dtb_extn_node_handle  node;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -226,14 +226,14 @@ dtb_extn_get_blob_handle (
 
 /**
  * dtb_extn_get_blob_size - return size of blob in memory
- * @node: pointer to fdt_node_handle object
+ * @node: pointer to dtb_extn_node_handle object
  * @size: pointer to uint32 to hold DTB size (in bytes)
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_blob_size (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   uint32_t         *size
   )
 {
@@ -261,22 +261,22 @@ dtb_extn_get_blob_size (
 }
 
 /*
- * The fdt_init_root_handle APIs are included here because they
+ * The dtb_extn_init_root_handle APIs are included here because they
  * need access to the blob_id[] table that is static to this file.
  *
  * Logically, these functions would be included in the _driver file.
  */
 
 /**
- * dtb_extn_init_root_handle_for_driver - return fdt_node_handle
- * @node: pointer to fdt_node_handle object
+ * dtb_extn_init_root_handle_for_driver - return dtb_extn_node_handle
+ * @node: pointer to dtb_extn_node_handle object
  * @blob: pointer to the device tree blob
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
 dtb_extn_init_root_handle_for_driver (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   const void       *blob
   )
 {
@@ -294,15 +294,15 @@ dtb_extn_init_root_handle_for_driver (
 }
 
 /**
- * dtb_extn_init_root_handle_for_driver_by_id - return fdt_node_handle
- * @node: pointer to fdt_node_handle object
+ * dtb_extn_init_root_handle_for_driver_by_id - return dtb_extn_node_handle
+ * @node: pointer to dtb_extn_node_handle object
  * @blob_id: index into blob handle array
  *
  * returns: FDT_ERR_QC_NOERROR (success) else error indicator
  */
 int
 dtb_extn_init_root_handle_for_driver_by_id (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   int              blob_id
   )
 {

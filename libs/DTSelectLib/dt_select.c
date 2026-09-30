@@ -115,8 +115,8 @@ _init_platinfo (
   );
 
 static int
-_init_fdt_node_handle (
-  fdt_node_handle  *node
+_init_dtb_extn_node_handle (
+  dtb_extn_node_handle  *node
   );
 
 static int
@@ -159,7 +159,7 @@ _print_input_parameters (
 
 static int
 _print_property_value (
-  fdt_node_handle *,
+  dtb_extn_node_handle *,
   char *,
   char *,
   int,
@@ -261,11 +261,11 @@ _init_platinfo (
 }
 
 /*
-  Function that initializes fdt_node_handle structure variables
+  Function that initializes dtb_extn_node_handle structure variables
 */
 static int
-_init_fdt_node_handle (
-  fdt_node_handle  *node
+_init_dtb_extn_node_handle (
+  dtb_extn_node_handle  *node
   )
 {
   if (!node) {
@@ -291,7 +291,7 @@ _init_handle_entry_data (
     return INVALID_PARAMETER;
   }
 
-  int  return_status = _init_fdt_node_handle (&(current_entry_data->node));
+  int  return_status = _init_dtb_extn_node_handle (&(current_entry_data->node));
 
   if (SUCCESS != return_status) {
     return return_status;
@@ -494,7 +494,7 @@ _print_input_parameters (
 
 static int
 _print_property_value (
-  fdt_node_handle  *node,
+  dtb_extn_node_handle  *node,
   char             *current_string_ptr,
   char             *print_buffer,
   int              len,
@@ -588,7 +588,7 @@ _print_board_id (
   char             *property_value_buffer_ptr          = NULL;
   int              len                                 = 0x0;
   char             *print_buffer                       = NULL;
-  fdt_node_handle  node;
+  dtb_extn_node_handle  node;
 
   if (0x0 == fdtheader) {
     DEFAULT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Wrong parameter passed to %s\n", __func__);
@@ -602,7 +602,7 @@ _print_board_id (
     prop_num_entries = 0x0;
   }
 
-  _init_fdt_node_handle (&node);
+  _init_dtb_extn_node_handle (&node);
   node.blob = (const void *)fdtheader;
 
   /* Get board-id node from the current dtbo blob before ROOT node properties are printed */
@@ -872,7 +872,7 @@ _is_chipinfo_family_match (
   }
 
   /* Get fdt handle node for current dtb/dtbo entry */
-  fdt_node_handle  *node                      = &(current_entry_data->node);
+  dtb_extn_node_handle  *node                      = &(current_entry_data->node);
   uint16_t         *DT_chipinfo_property      = NULL;
   uint32_t         DT_chipinfo_property_size  = 0x0;
   uint32_t         number_of_chipinfo_entries = 0x0;
@@ -975,7 +975,7 @@ _identify_blob_type_and_get_platforminfo (
   }
 
   /* Get fdt handle node for current dtb/dtbo entry */
-  fdt_node_handle  *node                          = &(current_entry_data->node);
+  dtb_extn_node_handle  *node                          = &(current_entry_data->node);
   uint8_t          *DT_platforminfo_property      = NULL;
   uint32_t         DT_platforminfo_property_size  = 0x0;
   uint32_t         number_of_platforminfo_entries = 0x0;
@@ -1146,7 +1146,7 @@ _validate_compatible_string (
   */
 
   /* Get fdt handle node for current dtb/dtbo entry */
-  fdt_node_handle  *node                                = &(current_entry_data->node);
+  dtb_extn_node_handle  *node                                = &(current_entry_data->node);
   char             *DT_compatible_property              = NULL;
   char             *Input_compatible_string_starts_with = NULL;
   char             *current_string_ptr                  = NULL;
@@ -1339,7 +1339,7 @@ _is_property_list_valid (
   }
 
   /* Get fdt handle node for current dtb/dtbo entry */
-  fdt_node_handle  *node            = &(current_entry_data->node);
+  dtb_extn_node_handle  *node            = &(current_entry_data->node);
   property_list    *Input_prop_list = input_parameters->Input_prop_list;
 
   for (uint32_t input_prop_list_index = 0; input_prop_list_index < input_parameters->prop_num_entries; input_prop_list_index++) {
@@ -2109,7 +2109,7 @@ _validate_oem_variant (
   uint32_t  *DT_oem_var_property     = NULL;
   uint32_t  DT_oem_var_property_size = 0x0;
   /* Get fdt handle node for current dtb/dtbo entry */
-  fdt_node_handle  *node = &(current_entry_data->node);
+  dtb_extn_node_handle  *node = &(current_entry_data->node);
 
   /* Default value for selecting this Platform DTBO entry should be False */
   current_entry_data->candidacy_status = INVALID_CANDIDATE;
@@ -2536,9 +2536,9 @@ dt_select_read_blob (
 
   uintptr_t        address = 0x0;
   size_t           size    = 0x0;
-  fdt_node_handle  node;
+  dtb_extn_node_handle  node;
 
-  _init_fdt_node_handle (&node);
+  _init_dtb_extn_node_handle (&node);
 
   switch (read_blob_type) {
     case BASE_DTB:
