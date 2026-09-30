@@ -35,7 +35,7 @@
  * @node: pointer to dtb_extn_node_handle object
  * @compatible: pointer to compatible string to search for
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  *   int fdt_node_offset_by_compatible(const void *fdt, int startoffset, const char *compatible);
@@ -43,7 +43,7 @@
 int dtb_extn_get_next_node_handle_for_compatible(dtb_extn_node_handle *node, const char *compatible)
 {
     int offset;                    /* FdtLib: return raw prop data */
-    int ret_value = FDT_ERR_QC_NOERROR;
+    int ret_value = DTB_ERR_NOERROR;
 
     #ifdef INSTRUMENTATION
     char ibuffer[DTB_LINE_BUF_SIZE];
@@ -77,7 +77,7 @@ int dtb_extn_get_next_node_handle_for_compatible(dtb_extn_node_handle *node, con
 * @tname: Target name in string-list property
 * @index: (return) index of target in list
 *
-* returns FDT_ERR_QC_NOERROR (success) else error indicator
+* returns DTB_ERR_NOERROR (success) else error indicator
 * 
 * FdtLib calls:
 * const struct fdt_property *fdt_get_property(const void *fdt, int nodeoffset, const char *name, int *lenp);
@@ -113,7 +113,7 @@ int dtb_extn_get_name_index(dtb_extn_node_handle *node, const char *pname, char 
 			if (!memcmp(&sptr[i], tname, mlen)) {
 				/* target (tname) found */
 				*index = lindex;
-				ret_value = FDT_ERR_QC_NOERROR;
+				ret_value = DTB_ERR_NOERROR;
 				break;
 			}
 			i += AsciiStrLen(&sptr[i])+1;	/* walk to next name in array */
@@ -131,7 +131,7 @@ exit:
 
 static int _dtb_extn_get_size_code(dtb_extn_node_handle *node, int *addr_code, int *size_code)
 {
-    return -FDT_ERR_QC_NOTSUPPORTED;
+    return -DTB_ERR_NOTSUPPORTED;
 }
 
 /**
@@ -144,7 +144,7 @@ static int _dtb_extn_get_size_code(dtb_extn_node_handle *node, int *addr_code, i
  * @reg_paddr: (return) physical address
  * @reg_size:  (return) size of this region
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls: fdt_getprop()
  *               fdt32_to_cpu()
@@ -161,7 +161,7 @@ int dtb_extn_get_reg(dtb_extn_node_handle *node,
     int len;                    /* FdtLib: return errors & size */
     const void *prop_value;        /* FdtLib: return property value */
     uint32_t *reg_data;
-    int ret_value = FDT_ERR_QC_NOERROR;
+    int ret_value = DTB_ERR_NOERROR;
 
     int reg_count = 0;            /* count of values in reg property */
     int index_size = 0;            /* size of each entry in reg<> property */
@@ -179,7 +179,7 @@ int dtb_extn_get_reg(dtb_extn_node_handle *node,
     PTR_CHECK(reg_size);
 
     /* valid #address_cells and #size_cells values required to parse reg<> property */
-    if ( (SIZE_BLOB == addr_code) || (SIZE_BLOB == size_code) ) {
+    if ( (DTB_REG_SIZE_BLOB == addr_code) || (DTB_REG_SIZE_BLOB == size_code) ) {
         ret_value = _dtb_extn_get_size_code(node, &addr_code, &size_code);
         if (ret_value) {
             if (dtb_config.verbose) {
@@ -191,31 +191,31 @@ int dtb_extn_get_reg(dtb_extn_node_handle *node,
     }
     /* validate addr_code */
     switch (addr_code) {
-        case SIZE_32:
-        case SIZE_64:
+        case DTB_REG_SIZE_32:
+        case DTB_REG_SIZE_64:
             break;
-        case SIZE_NIL:    /* nil is not valid for #address-cells */
+        case DTB_REG_SIZE_NIL:    /* nil is not valid for #address-cells */
         default:
             if (dtb_config.verbose) {
                 SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "Size code[%d] BAD", addr_code);
                 PUTS(ibuffer);
             }
-			ret_value = -FDT_ERR_QC_INPUT_ARG_ERR;
+			ret_value = -DTB_ERR_INPUT_ARG_ERR;
             goto err_exit;
             break;
     }
     /* validate size_code */
     switch (size_code) {
-        case SIZE_NIL:    /* nil is valid for #size-cells */
-        case SIZE_32:
-        case SIZE_64:
+        case DTB_REG_SIZE_NIL:    /* nil is valid for #size-cells */
+        case DTB_REG_SIZE_32:
+        case DTB_REG_SIZE_64:
             break;
         default:
             if (dtb_config.verbose) {
                 SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "Size code[%d] BAD", size_code);
                 PUTS(ibuffer);
             }
-			ret_value = -FDT_ERR_QC_INPUT_ARG_ERR;
+			ret_value = -DTB_ERR_INPUT_ARG_ERR;
             goto err_exit;
             break;
     }
@@ -238,7 +238,7 @@ int dtb_extn_get_reg(dtb_extn_node_handle *node,
             SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "Reg index[%d] < 0", ret_value);
             PUTS(ibuffer);
         }
-		ret_value = -FDT_ERR_QC_REGIDX;
+		ret_value = -DTB_ERR_REGIDX;
         goto err_exit;
     }
 
@@ -266,19 +266,19 @@ int dtb_extn_get_reg(dtb_extn_node_handle *node,
             SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "Target index[%d] too large[%d]", target_idx, reg_index);
             PUTS(ibuffer);
         }
-		ret_value = -FDT_ERR_QC_TARGETIDX;
+		ret_value = -DTB_ERR_TARGETIDX;
         goto err_exit;
     }
 
 
     /* Step 3: extract data from blob */
     switch (addr_code) {
-        case SIZE_32:
+        case DTB_REG_SIZE_32:
             d32 = fdt32_to_cpu(reg_data[target_idx]);
             target_idx += 1;
             *reg_paddr = (uint64_t)d32;
             break;
-        case SIZE_64:
+        case DTB_REG_SIZE_64:
             d64 = fdt64_to_cpu((uint64_t)reg_data[target_idx] | ((uint64_t)reg_data[target_idx + 1])<<32 );
             target_idx += 2;
             *reg_paddr = d64;
@@ -287,21 +287,21 @@ int dtb_extn_get_reg(dtb_extn_node_handle *node,
             break;
     }
     switch (size_code) {
-        case SIZE_32:
+        case DTB_REG_SIZE_32:
             d32 = fdt32_to_cpu(reg_data[target_idx]);
             *reg_size = (uint64_t)d32;
             break;
-        case SIZE_64:
+        case DTB_REG_SIZE_64:
             d64 = fdt64_to_cpu((uint64_t)reg_data[target_idx] | ((uint64_t)reg_data[target_idx + 1])<<32 );
             *reg_size = d64;
             break;
-        case SIZE_NIL:
+        case DTB_REG_SIZE_NIL:
             *reg_size = 0;
             break;
         default:    /* defeat compiler/KW warnings */
             break;
     }
-    ret_value = FDT_ERR_QC_NOERROR;
+    ret_value = DTB_ERR_NOERROR;
 
 err_exit:
     if (dtb_config.trace) {

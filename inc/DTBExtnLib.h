@@ -46,7 +46,7 @@ typedef struct {
  * @merge_blob:      Merged  DTB tree
  * @mb_size: 		 size of Merge Blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_totalsize()
@@ -60,7 +60,7 @@ int dtb_extn_merge_overlay(const void *primary_blob, size_t pb_size, void *overl
  * @blob: pointer to the device tree blob
  * @bsize: size of blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_check_for_valid_blob(const void *blob, size_t bsize);
 
@@ -70,7 +70,7 @@ int dtb_extn_check_for_valid_blob(const void *blob, size_t bsize);
  * @bsize: size of blob
  * @blob_id: index for requested blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_set_blob_handle(const void *blob, size_t bsize, int blob_id);
 
@@ -79,7 +79,7 @@ int dtb_extn_set_blob_handle(const void *blob, size_t bsize, int blob_id);
  * @blob: pointer to the device tree blob
  * @blob_id: index for requested blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_blob_handle(const void **blob, int blob_id);
 
@@ -88,7 +88,7 @@ int dtb_extn_get_blob_handle(const void **blob, int blob_id);
  * @node: pointer to dtb_extn_node_handle object
  * @blob: pointer to the device tree blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_init_root_handle_for_driver(dtb_extn_node_handle *node, const void *blob);
 
@@ -97,7 +97,7 @@ int dtb_extn_init_root_handle_for_driver(dtb_extn_node_handle *node, const void 
  * @node: pointer to dtb_extn_node_handle object
  * @blob_id: index into blob handle array
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_init_root_handle_for_driver_by_id(dtb_extn_node_handle *node, int blob_id);
 
@@ -107,7 +107,7 @@ int dtb_extn_init_root_handle_for_driver_by_id(dtb_extn_node_handle *node, int b
  * @blob: pointer to the device tree blob
  * @name: pointer to node name (string)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_node_handle(dtb_extn_node_handle *node, const void *blob, char *name);
 
@@ -116,7 +116,7 @@ int dtb_extn_get_node_handle(dtb_extn_node_handle *node, const void *blob, char 
  * @dst: pointer to destination dtb_extn_node_handle object
  * @src: pointer to source dtb_extn_node_handle object
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_node_copy(dtb_extn_node_handle *dst, dtb_extn_node_handle *src);
 
@@ -127,7 +127,7 @@ int dtb_extn_node_copy(dtb_extn_node_handle *dst, dtb_extn_node_handle *src);
  *
  * returns:
  *  0 if nodes match
- *  -FDT_ERR_QC_NODE_DIFFERENT if nodes DO NOT match
+ *  -DTB_ERR_NODE_DIFFERENT if nodes DO NOT match
  *  else error indicator, e.g. NULL PTR
  */
 int dtb_extn_node_cmp(dtb_extn_node_handle *node_a, dtb_extn_node_handle *node_b);
@@ -138,7 +138,7 @@ int dtb_extn_node_cmp(dtb_extn_node_handle *node_a, dtb_extn_node_handle *node_b
  * @phandle: phandle reference in blob
  * @pnode: pointer to dtb_extn_node_handle for new phandle node
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_phandle_node(dtb_extn_node_handle *node, uint32_t phandle, dtb_extn_node_handle *pnode);
 
@@ -147,7 +147,7 @@ int dtb_extn_get_phandle_node(dtb_extn_node_handle *node, uint32_t phandle, dtb_
  * @node: pointer to dtb_extn_node_handle object
  * @pnode: pointer to dtb_extn_node_handle for new parent node
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_parent_node(dtb_extn_node_handle *node, dtb_extn_node_handle *pnode);
 
@@ -156,7 +156,7 @@ int dtb_extn_get_parent_node(dtb_extn_node_handle *node, dtb_extn_node_handle *p
  * @node: pointer to dtb_extn_node_handle object
  * @size: pointer to uint32 to hold DTB size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_blob_size(dtb_extn_node_handle *node, uint32_t *size);
 
@@ -166,7 +166,7 @@ int dtb_extn_get_blob_size(dtb_extn_node_handle *node, uint32_t *size);
  * @prop_name: property name
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_prop_size(dtb_extn_node_handle *node, const char *prop_name, uint32_t *size);
 
@@ -180,11 +180,11 @@ int dtb_extn_get_prop_size(dtb_extn_node_handle *node, const char *prop_name, ui
  *                   values from a single node you may want to use dtb_extn_get_prop_values_of_node() instead
  * Corner-Case Warning: DTB properties can have no value (QDTE reports this as empty).  
  *                      Underlying FdtLib API(s) do not treat this as an error
- *                      This API will return FDT_ERR_QC_NOERROR and not modify input parameter
+ *                      This API will return DTB_ERR_NOERROR and not modify input parameter
  * Recommendation to client: Use local sentinel value, e.g. -1 to initialize parameter before call 
  *                           and check value against this sentinel value after call
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_boolean_prop(dtb_extn_node_handle *node, const char *prop_name, uint32_t *value);
 
@@ -194,7 +194,7 @@ int dtb_extn_get_boolean_prop(dtb_extn_node_handle *node, const char *prop_name,
  * @prop_name: property name
  *
  * The length for Boolean property in Device Tree Blob is 0x0.
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  */
 int dtb_extn_get_bool_prop(dtb_extn_node_handle *node, const char *prop_name);
@@ -209,11 +209,11 @@ int dtb_extn_get_bool_prop(dtb_extn_node_handle *node, const char *prop_name);
  *                   values from a single node you may want to use dtb_extn_get_prop_values_of_node() instead
  * Corner-Case Warning: DTB properties can have no value (QDTE reports this as empty).  
  *                      Underlying FdtLib API(s) do not treat this as an error
- *                      This API will return FDT_ERR_QC_NOERROR and not modify input parameter
+ *                      This API will return DTB_ERR_NOERROR and not modify input parameter
  * Recommendation to client: Use local sentinel value, e.g. -1 to initialize parameter before call 
  *                           and check value against this sentinel value after call
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint8_prop(dtb_extn_node_handle *node, const char *prop_name, uint8_t *value);
 
@@ -224,7 +224,7 @@ int dtb_extn_get_uint8_prop(dtb_extn_node_handle *node, const char *prop_name, u
  * @prop_list: buffer pointer to hold uint8 list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint8_prop_list(dtb_extn_node_handle *node, const char *prop_name, uint8_t *prop_list, uint32_t size);
 
@@ -236,7 +236,7 @@ int dtb_extn_get_uint8_prop_list(dtb_extn_node_handle *node, const char *prop_na
  * @index: starting index to extract
  * @count: number of values to extract
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint8_prop_list_slice(dtb_extn_node_handle *node, const char *prop_name, uint8_t *prop_list, uint32_t index, uint32_t count);
 
@@ -250,11 +250,11 @@ int dtb_extn_get_uint8_prop_list_slice(dtb_extn_node_handle *node, const char *p
  *                   values from a single node you may want to use dtb_extn_get_prop_values_of_node() instead
  * Corner-Case Warning: DTB properties can have no value (QDTE reports this as empty).  
  *                      Underlying FdtLib API(s) do not treat this as an error
- *                      This API will return FDT_ERR_QC_NOERROR and not modify input parameter
+ *                      This API will return DTB_ERR_NOERROR and not modify input parameter
  * Recommendation to client: Use local sentinel value, e.g. -1 to initialize parameter before call 
  *                           and check value against this sentinel value after call
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint16_prop(dtb_extn_node_handle *node, const char *prop_name, uint16_t *value);
 
@@ -265,7 +265,7 @@ int dtb_extn_get_uint16_prop(dtb_extn_node_handle *node, const char *prop_name, 
  * @prop_list: buffer pointer to hold uint16 list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint16_prop_list(dtb_extn_node_handle *node, const char *prop_name, uint16_t *prop_list, uint32_t size);
 
@@ -277,7 +277,7 @@ int dtb_extn_get_uint16_prop_list(dtb_extn_node_handle *node, const char *prop_n
  * @index: starting index to extract
  * @count: number of values to extract
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint16_prop_list_slice(dtb_extn_node_handle *node, const char *prop_name, uint16_t *prop_list, uint32_t index, uint32_t count);
 
@@ -291,11 +291,11 @@ int dtb_extn_get_uint16_prop_list_slice(dtb_extn_node_handle *node, const char *
  *                   values from a single node you may want to use dtb_extn_get_prop_values_of_node() instead
  * Corner-Case Warning: DTB properties can have no value (QDTE reports this as empty).  
  *                      Underlying FdtLib API(s) do not treat this as an error
- *                      This API will return FDT_ERR_QC_NOERROR and not modify input parameter
+ *                      This API will return DTB_ERR_NOERROR and not modify input parameter
  * Recommendation to client: Use local sentinel value, e.g. -1 to initialize parameter before call 
  *                           and check value against this sentinel value after call
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint32_prop(dtb_extn_node_handle *node, const char *prop_name, uint32_t *value);
 
@@ -306,7 +306,7 @@ int dtb_extn_get_uint32_prop(dtb_extn_node_handle *node, const char *prop_name, 
  * @prop_list: buffer pointer to hold uint32 list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint32_prop_list(dtb_extn_node_handle *node, const char *prop_name, uint32_t *prop_list, uint32_t size);
 
@@ -318,7 +318,7 @@ int dtb_extn_get_uint32_prop_list(dtb_extn_node_handle *node, const char *prop_n
  * @index: starting index to extract
  * @count: number of values to extract
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint32_prop_list_slice(dtb_extn_node_handle *node, const char *prop_name, uint32_t *prop_list, uint32_t index, uint32_t count);
 
@@ -332,11 +332,11 @@ int dtb_extn_get_uint32_prop_list_slice(dtb_extn_node_handle *node, const char *
  *                   values from a single node you may want to use dtb_extn_get_prop_values_of_node() instead
  * Corner-Case Warning: DTB properties can have no value (QDTE reports this as empty).  
  *                      Underlying FdtLib API(s) do not treat this as an error
- *                      This API will return FDT_ERR_QC_NOERROR and not modify input parameter
+ *                      This API will return DTB_ERR_NOERROR and not modify input parameter
  * Recommendation to client: Use local sentinel value, e.g. -1 to initialize parameter before call 
  *                           and check value against this sentinel value after call
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint64_prop(dtb_extn_node_handle *node, const char *prop_name, uint64_t *value);
 
@@ -347,7 +347,7 @@ int dtb_extn_get_uint64_prop(dtb_extn_node_handle *node, const char *prop_name, 
  * @prop_list: buffer pointer to hold uint64 list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint64_prop_list(dtb_extn_node_handle *node, const char *prop_name, uint64_t *prop_list, uint32_t size);
 
@@ -359,7 +359,7 @@ int dtb_extn_get_uint64_prop_list(dtb_extn_node_handle *node, const char *prop_n
  * @index: starting index to extract
  * @count: number of values to extract
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_uint64_prop_list_slice(dtb_extn_node_handle *node, const char *prop_name, uint64_t *prop_list, uint32_t index, uint32_t count);
 
@@ -370,7 +370,7 @@ int dtb_extn_get_uint64_prop_list_slice(dtb_extn_node_handle *node, const char *
  * @string_list: buffer pointer to hold string list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_string_prop_list(dtb_extn_node_handle *node, const char *prop_name, char *string_list, uint32_t size);
 
@@ -382,7 +382,7 @@ int dtb_extn_get_string_prop_list(dtb_extn_node_handle *node, const char *prop_n
  * Performance Note: if you are using this API in a loop or calling it repeatedly to pull
  *                   values from a single node you may want to use dtb_extn_get_prop_values_of_node() instead
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_prop_values_size_of_node(dtb_extn_node_handle *node, uint32_t *size);
 
@@ -419,11 +419,11 @@ int dtb_extn_get_prop_values_size_of_node(dtb_extn_node_handle *node, uint32_t *
  *          synchronicity with the DTB node layout.  If there is a deviation you can expect a bug!!
  *
  * returns:           0	                        Success (NO ERROR) 
- *          -FDT_ERR_QC_NULLPTR (-1000)	        If any of the pointer argument is/are NULL
- *          -FDT_ERR_QC_NILVALUE (-1003)	    Size of a property value is found to be 0
- *          -FDT_ERR_QC_SDNULL (-1004)	        Failed to get the address of property value in DTB (Device Tree Blob)
- *          -FDT_ERR_QC_TRUNCATED (-1001)	    The buffer size passed was less than the total properties size of the node
- *          -FDT_ERR_QC_BADFORMAT (-1005)	    Passed format string contain any other letter mentioned in the argument's description
+ *          -DTB_ERR_NULLPTR (-1000)	        If any of the pointer argument is/are NULL
+ *          -DTB_ERR_NILVALUE (-1003)	    Size of a property value is found to be 0
+ *          -DTB_ERR_SDNULL (-1004)	        Failed to get the address of property value in DTB (Device Tree Blob)
+ *          -DTB_ERR_TRUNCATED (-1001)	    The buffer size passed was less than the total properties size of the node
+ *          -DTB_ERR_BADFORMAT (-1005)	    Passed format string contain any other letter mentioned in the argument's description
  *          - FDT_ERR_BADOFFSET (-4)	        When the passed offset is out-of-bounds, or points to an unsuitable part of DTB structure.
  *                                              This error is returned by the fdtLib function call used in this API.
  */
@@ -434,7 +434,7 @@ int dtb_extn_get_prop_values_of_node(dtb_extn_node_handle *node, char *format, v
  * @node: pointer to dtb_extn_node_handle object
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_prop_names_size_of_node(dtb_extn_node_handle *node, uint32_t *size);
 
@@ -444,7 +444,7 @@ int dtb_extn_get_prop_names_size_of_node(dtb_extn_node_handle *node, uint32_t *s
  * @prop_names: buffer pointer to hold all property names
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_prop_names_of_node(dtb_extn_node_handle *node, char *prop_names, uint32_t size);
 
@@ -460,7 +460,7 @@ int dtb_extn_get_prop_names_of_node(dtb_extn_node_handle *node, char *prop_names
  *                     with the DTB offset for each sub-node, so no string
  *                     lookup of the sub-node is required.
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_cache_of_subnodes(dtb_extn_node_handle *node, dtb_extn_node_handle *cache, uint32_t count);
 
@@ -469,7 +469,7 @@ int dtb_extn_get_cache_of_subnodes(dtb_extn_node_handle *node, dtb_extn_node_han
  * @node: pointer to dtb_extn_node_handle object
  * @count: pointer to uint32 to hold count of subnodes
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_count_of_subnodes(dtb_extn_node_handle *node, uint32_t *count);
 
@@ -479,7 +479,7 @@ int dtb_extn_get_count_of_subnodes(dtb_extn_node_handle *node, uint32_t *count);
  * @names: pointer to uint32_t array to hold sizes
  * @count: uint32 to hold count of array items
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_size_of_subnode_names(dtb_extn_node_handle *node, uint32_t *names, uint32_t count);
 
@@ -489,7 +489,7 @@ int dtb_extn_get_size_of_subnode_names(dtb_extn_node_handle *node, uint32_t *nam
  * @prop_names: buffer pointer to hold all subnode names
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_subnode_names(dtb_extn_node_handle *node, void *names, uint32_t size);
 
@@ -498,7 +498,7 @@ int dtb_extn_get_subnode_names(dtb_extn_node_handle *node, void *names, uint32_t
  * @node: pointer to dtb_extn_node_handle object
  * @compatible: pointer to compatible string to search for
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_next_node_handle_for_compatible(dtb_extn_node_handle *node, const char *compatible);
 
@@ -512,7 +512,7 @@ int dtb_extn_get_next_node_handle_for_compatible(dtb_extn_node_handle *node, con
  * @reg_paddr: (return) physical address
  * @reg_size:  (return) size of this region
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int dtb_extn_get_reg(dtb_extn_node_handle *node,
                            char *reg_name,
@@ -529,7 +529,7 @@ int dtb_extn_get_reg(dtb_extn_node_handle *node,
 * @tname: Target name in string-list property
 * @index: (return) index of target in list
 *
-* returns FDT_ERR_QC_NOERROR (success) else error indicator
+* returns DTB_ERR_NOERROR (success) else error indicator
 */
 int dtb_extn_get_name_index(dtb_extn_node_handle *node, const char *pname, char *tname, int *index);
 
@@ -539,7 +539,7 @@ int dtb_extn_get_name_index(dtb_extn_node_handle *node, const char *pname, char 
  * @blob: current dtb blob address
  * note:it need extra memory store dtb hash_node ,each hash_node need 40 byte memory space
  * tatol need memory is (tatol node * 40)
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  */
 int dtb_extn_CreatDtbHashTable (int blob_id, const void  *blob);

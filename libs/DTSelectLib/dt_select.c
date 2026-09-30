@@ -608,14 +608,14 @@ _print_board_id (
   /* Get board-id node from the current dtbo blob before ROOT node properties are printed */
   int  return_status = dtb_extn_get_node_handle (&node, node.blob, ROOT_NODE);
 
-  if ((FDT_ERR_QC_NOERROR != return_status) || (NULL == node.blob) || (NULL == node.blob)) {
+  if ((DTB_ERR_NOERROR != return_status) || (NULL == node.blob) || (NULL == node.blob)) {
     DEFAULT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Unable to fetch %s Node! Skip printing for this DTB/DTBO\n", ROOT_NODE_NAME);
     return SUCCESS;
   }
 
   /* Fetch the size for all the property names */
   return_status = dtb_extn_get_prop_names_size_of_node (&node, &DT_board_id_node_property_name_size);
-  if (FDT_ERR_QC_NOERROR != return_status) {
+  if (DTB_ERR_NOERROR != return_status) {
     DEFAULT_LOG_MESSAGE (buffer, BUFFER_SIZE, "\"%s\": Unable to fetch the node\n", ROOT_NODE);
     goto EXIT_POINT (_print_board_id);
   }
@@ -627,7 +627,7 @@ _print_board_id (
   }
 
   return_status = dtb_extn_get_prop_names_of_node (&node, DT_board_id_node_property_names, DT_board_id_node_property_name_size);
-  if (FDT_ERR_QC_NOERROR != return_status) {
+  if (DTB_ERR_NOERROR != return_status) {
     DEFAULT_LOG_MESSAGE (buffer, BUFFER_SIZE, "\"%s\": Unable to fetch the node\n", ROOT_NODE);
     goto EXIT_POINT (_print_board_id);
   }
@@ -656,7 +656,7 @@ _print_board_id (
     len = SNPRINTF_WRAPPER (print_buffer, BUFFER_SIZE, "  %s ", current_string_ptr);
 
     return_status = dtb_extn_get_prop_size (&node, current_string_ptr, &property_value_buffer_size);
-    if (FDT_ERR_QC_NOERROR != return_status) {
+    if (DTB_ERR_NOERROR != return_status) {
       PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Unable to fetch \"%s\"! Moving to next Blob\n", current_string_ptr);
       goto EXIT_POINT (_print_board_id);
     }
@@ -883,7 +883,7 @@ _is_chipinfo_family_match (
   /* Get Chipinfo from ROOT node */
   int  return_status = dtb_extn_get_prop_size (node, CHIPINFO_PROP_NAME, &DT_chipinfo_property_size);
 
-  if (FDT_ERR_QC_NOERROR != return_status) {
+  if (DTB_ERR_NOERROR != return_status) {
     PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Unable to fetch \"%s\"! Moving to next Blob\n", CHIPINFO_PROP_NAME);
     goto EXIT_POINT (_is_chipinfo_family_match);
   }
@@ -902,7 +902,7 @@ _is_chipinfo_family_match (
   }
 
   return_status = dtb_extn_get_uint16_prop_list (node, CHIPINFO_PROP_NAME, DT_chipinfo_property, DT_chipinfo_property_size);
-  if (FDT_ERR_QC_NOERROR != return_status) {
+  if (DTB_ERR_NOERROR != return_status) {
     PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Unable to fetch \"%s\"! Moving to next Blob\n", CHIPINFO_PROP_NAME);
     goto EXIT_POINT (_is_chipinfo_family_match);
   }
@@ -1023,7 +1023,7 @@ _identify_blob_type_and_get_platforminfo (
     */
 
     /* Check for any unexpected error while fetching "platinfo" property */
-    if ((FDT_ERR_QC_NOERROR != return_status) && ((-FDT_ERR_NOTFOUND) != return_status)) {
+    if ((DTB_ERR_NOERROR != return_status) && ((-FDT_ERR_NOTFOUND) != return_status)) {
       PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Error in getting size for \"%s\"! Moving to next Blob\n", PLATFORMINFO_PROP_NAME);
       goto EXIT_POINT (_identify_blob_type_and_get_platforminfo);
     }
@@ -1055,7 +1055,7 @@ _identify_blob_type_and_get_platforminfo (
                                                (uint8_t *)DT_platforminfo_property,
                                                DT_platforminfo_property_size
                                                );
-      if (FDT_ERR_QC_NOERROR != return_status) {
+      if (DTB_ERR_NOERROR != return_status) {
         PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "\"%s\" error in reading! Moving to next Blob\n", PLATFORMINFO_PROP_NAME);
         goto EXIT_POINT (_identify_blob_type_and_get_platforminfo);
       }
@@ -1152,7 +1152,7 @@ _validate_compatible_string (
   char             *current_string_ptr                  = NULL;
   uint32_t         DT_compatible_property_size          = 0x0;
   uint32_t         compatible_property_size             = 0x0;
-  int              return_status                        = ~FDT_ERR_QC_NOERROR;
+  int              return_status                        = ~DTB_ERR_NOERROR;
 
   /* By default, mark this entry as Invalid */
   current_entry_data->candidacy_status = INVALID_CANDIDATE;
@@ -1172,7 +1172,7 @@ _validate_compatible_string (
 
   /* if Input compatible string exists, it should match with packaging's compatible property */
   return_status = dtb_extn_get_prop_size (node, COMPATIBLE_PROP_NAME, &DT_compatible_property_size);
-  if ((FDT_ERR_QC_NOERROR != return_status) || !DT_compatible_property_size) {
+  if ((DTB_ERR_NOERROR != return_status) || !DT_compatible_property_size) {
     PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "\"%s\": Property not found! Moving to next Blob\n", COMPATIBLE_PROP_NAME);
     goto EXIT_POINT (_validate_compatible_string);
   }
@@ -1198,7 +1198,7 @@ _validate_compatible_string (
                                             (void *)DT_compatible_property,
                                             DT_compatible_property_size
                                             );
-  if (FDT_ERR_QC_NOERROR != return_status) {
+  if (DTB_ERR_NOERROR != return_status) {
     PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Unable to fetch \"%s\"! Moving to next Blob\n", COMPATIBLE_PROP_NAME);
     goto EXIT_POINT (_validate_compatible_string);
   }
@@ -1293,7 +1293,7 @@ _is_compatible_string_match (
   /* Need to identify the type of blob the current dtb/dtbo entry (struct handle_entry_data) is */
   int  return_status = _identify_blob_type_and_get_platforminfo (current_entry_data, input_parameters);
 
-  if ((FDT_ERR_QC_NOERROR != return_status) || (VALID_CANDIDATE != current_entry_data->candidacy_status)) {
+  if ((DTB_ERR_NOERROR != return_status) || (VALID_CANDIDATE != current_entry_data->candidacy_status)) {
     goto EXIT_POINT (_is_compatible_string_match);
   }
 
@@ -1352,7 +1352,7 @@ _is_property_list_valid (
     /* Get size of individual properties from Packaging Root Node */
     int  return_status = dtb_extn_get_prop_size (node, Input_prop_list[input_prop_list_index].prop_name, &DT_property_size);
 
-    if (FDT_ERR_QC_NOERROR != return_status) {
+    if (DTB_ERR_NOERROR != return_status) {
       PRINT_LOG_MESSAGE (
                          buffer,
                          BUFFER_SIZE,
@@ -1424,11 +1424,11 @@ _is_property_list_valid (
                                                   );
         break;
       default:
-        return_status = ~FDT_ERR_QC_NOERROR;
+        return_status = ~DTB_ERR_NOERROR;
         PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Unsupported size! Moving to next Blob\n");
     }
 
-    if (FDT_ERR_QC_NOERROR != return_status) {
+    if (DTB_ERR_NOERROR != return_status) {
       PRINT_LOG_MESSAGE (
                          buffer,
                          BUFFER_SIZE,
@@ -1640,7 +1640,7 @@ _is_fdtheader_at_end_of_image (
        If not within the boundary, then return error.
     */
     return_status = dtb_extn_get_blob_size (&(current_entry_data->node), (uint32_t *)&current_entry_data->device_tree_blob_size);
-    if (FDT_ERR_QC_NOERROR != return_status) {
+    if (DTB_ERR_NOERROR != return_status) {
       PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Not a Valid Blob! Fetching Blob size failed. Returning error\n");
       return return_status;
     }
@@ -1692,7 +1692,7 @@ _is_fdtheader_at_end_of_image (
        Check if size of current blob is non zero and when added to fdtheader, the pointer shouldn't overflow.
     */
     return_status = dtb_extn_get_blob_size (&(current_entry_data->node), (uint32_t *)&current_entry_data->device_tree_blob_size);
-    if ((FDT_ERR_QC_NOERROR != return_status) || !current_entry_data->device_tree_blob_size) {
+    if ((DTB_ERR_NOERROR != return_status) || !current_entry_data->device_tree_blob_size) {
       PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Not a Valid Blob! Returning error\n");
       return INVALID_BLOB_ENTRY;
     }
@@ -1816,7 +1816,7 @@ _select_dtb_and_dtbos (
 
     /* Get ROOT node from the current dtbo blob before ROOT node properties are validated for selecting DTB/DTBO */
     return_status = dtb_extn_get_node_handle (&(current_entry_data.node), (current_entry_data.node).blob, ROOT_NODE);
-    if (FDT_ERR_QC_NOERROR != return_status) {
+    if (DTB_ERR_NOERROR != return_status) {
       PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Unable to fetch Root Node! Returning error\n");
       return GET_ROOT_NODE_FAILED;
     }
@@ -2116,7 +2116,7 @@ _validate_oem_variant (
 
   int  return_status = dtb_extn_get_prop_size (node, OEM_VAR_PROP_NAME, &DT_oem_var_property_size);
 
-  if ((FDT_ERR_QC_NOERROR != return_status) || !DT_oem_var_property_size) {
+  if ((DTB_ERR_NOERROR != return_status) || !DT_oem_var_property_size) {
     if ((-FDT_ERR_NOTFOUND) == return_status) {
       PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "\"%s\": Property not found!\n", OEM_VAR_PROP_NAME);
       /* If string OEM-VAR property does not exist, then directly return VALID_CANDIDATE */
@@ -2144,7 +2144,7 @@ _validate_oem_variant (
     }
 
     return_status = dtb_extn_get_uint32_prop_list (node, OEM_VAR_PROP_NAME, DT_oem_var_property, DT_oem_var_property_size);
-    if (FDT_ERR_QC_NOERROR != return_status) {
+    if (DTB_ERR_NOERROR != return_status) {
       PRINT_LOG_MESSAGE (buffer, BUFFER_SIZE, "Error in fetching Property \"%s\"! Moving to next Blob", OEM_VAR_PROP_NAME);
       goto EXIT_POINT (_validate_oem_variant);
     } else {

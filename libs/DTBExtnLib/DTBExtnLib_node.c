@@ -204,7 +204,7 @@ AllocateZeroPoolNoFree (
  * @dwsize: alloc memory size
  * @ppmem: store memory pointer address
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  */
 uint32_t
@@ -225,7 +225,7 @@ __dtb_malloc (
 
   if (dwSize >= EFI_PAGE_SIZE) {
     *ppMem =  AllocateZeroPoolNoFree (dwSize);
-    return FDT_ERR_QC_NOERROR;
+    return DTB_ERR_NOERROR;
   }
 
   if (FreeBufferPtr == NULL) {
@@ -251,7 +251,7 @@ __dtb_malloc (
 
   *ppMem         = FreeBufferPtr;
   FreeBufferPtr += dwSize;
-  return FDT_ERR_QC_NOERROR;
+  return DTB_ERR_NOERROR;
 
  #elif defined (TARGET_XBL)
   mem_if->malloc (dwSize, ppMem);
@@ -262,7 +262,7 @@ __dtb_malloc (
   if (NULL == *ppMem) {
     return -1;
   } else {
-    return FDT_ERR_QC_NOERROR;
+    return DTB_ERR_NOERROR;
   }
 }
 
@@ -270,7 +270,7 @@ __dtb_malloc (
 * __dtb_free - return alloc memory status
 * @ppmem: store memory pointer address
 *
-* returns: FDT_ERR_QC_NOERROR (success) else error indicator
+* returns: DTB_ERR_NOERROR (success) else error indicator
 *
 */
 uint32_t
@@ -290,7 +290,7 @@ __dtb_free (
   free (pmem);
  #endif
 
-  return FDT_ERR_QC_NOERROR;
+  return DTB_ERR_NOERROR;
 }
 
 /**
@@ -766,7 +766,7 @@ is_merge_dtb (
  * @blob: pointer to the device tree blob
  * @name: pointer to node name (string)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   int fdt_path_offset(const void *fdt, const char *path);
@@ -779,7 +779,7 @@ dtb_extn_get_node_handle (
   )
 {
   int  offset;           /* FdtLib: return offset value */
-  int  ret_value = FDT_ERR_QC_NOERROR;
+  int  ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -796,8 +796,8 @@ dtb_extn_get_node_handle (
 
   /* Include the dtb_extn_get_blob_handle API feature here to make that API optional or obsolete*/
   if (NULL == blob) {
-    ret_value = dtb_extn_get_blob_handle (&blob, DEFAULT_BLOB_ID);
-    if (ret_value != FDT_ERR_QC_NOERROR) {
+    ret_value = dtb_extn_get_blob_handle (&blob, DTB_DEFAULT_BLOB_ID);
+    if (ret_value != DTB_ERR_NOERROR) {
       return ret_value;
     }
   }
@@ -904,7 +904,7 @@ dtb_extn_get_node_handle (
  * @phandle: phandle reference in blob
  * @pnode: pointer to dtb_extn_node_handle for new phandle node
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   int fdt_node_offset_by_phandle(const void *fdt, uint32_t phandle);
@@ -917,7 +917,7 @@ dtb_extn_get_phandle_node (
   )
 {
   int  offset    = 0;                                           /* FdtLib: return offset value */
-  int  ret_value = FDT_ERR_QC_NOERROR;
+  int  ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -988,7 +988,7 @@ dtb_extn_get_phandle_node (
  * @node: pointer to dtb_extn_node_handle object
  * @pnode: pointer to dtb_extn_node_handle for new parent node
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   int fdt_parent_offset(const void *fdt, int nodeoffset);
@@ -1000,7 +1000,7 @@ dtb_extn_get_parent_node (
   )
 {
   int  offset;                                                  /* FdtLib: return offset value */
-  int  ret_value = FDT_ERR_QC_NOERROR;
+  int  ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -1037,7 +1037,7 @@ dtb_extn_get_parent_node (
  * @node_a: pointer to dtb_extn_node_handle object A
  * @node_b: pointer to dtb_extn_node_handle object B
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_node_cmp (
@@ -1045,7 +1045,7 @@ dtb_extn_node_cmp (
   dtb_extn_node_handle  *node_b
   )
 {
-  int  ret_value = FDT_ERR_QC_NOERROR;
+  int  ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -1055,7 +1055,7 @@ dtb_extn_node_cmp (
   PTR_CHECK (node_b);
 
   if (!((node_a->blob == node_b->blob) && (node_a->offset == node_b->offset))) {
-    ret_value = -FDT_ERR_QC_NODE_DIFFERENT;
+    ret_value = -DTB_ERR_NODE_DIFFERENT;
 
     if (dtb_config.verbose) {
       SNPRINTF (ibuffer, DTB_LINE_BUF_SIZE, "nodes are different[%p].[%p]", node_a, node_b);
@@ -1076,7 +1076,7 @@ dtb_extn_node_cmp (
  * @dst: pointer to destination dtb_extn_node_handle object
  * @src: pointer to source dtb_extn_node_handle object
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_node_copy (
@@ -1084,7 +1084,7 @@ dtb_extn_node_copy (
   dtb_extn_node_handle  *src
   )
 {
-  int  ret_value = FDT_ERR_QC_NOERROR;
+  int  ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -1109,7 +1109,7 @@ dtb_extn_node_copy (
  * @node: pointer to dtb_extn_node_handle object
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   macro: fdt_for_each_property_offset(int, const void *, int)
@@ -1125,7 +1125,7 @@ dtb_extn_get_prop_values_size_of_node (
   int                        len;               /* FdtLib: return errors & size */
   const char                 *pname;            /* FdtLib: return name */
   const struct fdt_property  *fdtp;             /* FdtLib: return raw prop data */
-  int                        ret_value = FDT_ERR_QC_NOERROR;
+  int                        ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -1175,7 +1175,7 @@ dtb_extn_get_prop_values_size_of_node (
  * @packed_prop_values: buffer pointer to hold packed node properties
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   macro: fdt_for_each_property_offset(int, const void *, int)
@@ -1196,7 +1196,7 @@ dtb_extn_get_prop_values_of_node (
   int         property;                                         /* FdtLib: property iterator */
   int         len;                                              /* FdtLib: return errors & size */
   const char  *pname;                                           /* FdtLib: return name */
-  int         ret_value = FDT_ERR_QC_NOERROR;
+  int         ret_value = DTB_ERR_NOERROR;
 
   uint32_t    i = 0, j;                                 /* indexes & loop counters */
   uint32_t    count = 0;                                /* running count of copied data */
@@ -1238,7 +1238,7 @@ dtb_extn_get_prop_values_of_node (
         /* normally this isn't an error, but this API has to error at this point */
         /* client is expecting a value in a packed struct and there is no value */
         if (dtb_config.verbose) {
-          ret_value = -FDT_ERR_QC_NILVALUE;
+          ret_value = -DTB_ERR_NILVALUE;
           SNPRINTF (ibuffer, DTB_LINE_BUF_SIZE, "Property[%a] has no value in DTB[%d]", pname, ret_value);
           PUTS (ibuffer);
           goto exit;
@@ -1247,13 +1247,13 @@ dtb_extn_get_prop_values_of_node (
         /* property has value to copy to destination */
         if (count >= size) {
           /* count of data items copied so far has filled buffer */
-          ret_value = -FDT_ERR_QC_TRUNCATED;
+          ret_value = -DTB_ERR_TRUNCATED;
           goto exit;
         }
 
         if (len > (size-count)) {
           /* size of new data to copy will overflow buffer */
-          ret_value = -FDT_ERR_QC_OVERFLOW;
+          ret_value = -DTB_ERR_OVERFLOW;
           goto exit;
         }
 
@@ -1308,7 +1308,7 @@ dtb_extn_get_prop_values_of_node (
               PUTS (ibuffer);
             }
 
-            ret_value = -FDT_ERR_QC_BADFORMAT;
+            ret_value = -DTB_ERR_BADFORMAT;
             goto exit;
         }
 
@@ -1341,7 +1341,7 @@ exit:
  * @node: pointer to dtb_extn_node_handle object
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   macro: fdt_for_each_property_offset(int, const void *, int)
@@ -1357,7 +1357,7 @@ dtb_extn_get_prop_names_size_of_node (
   int                        len;               /* FdtLib: return errors & size */
   const char                 *pname;            /* FdtLib: return name */
   const struct fdt_property  *fdtp;             /* FdtLib: return raw prop data */
-  int                        ret_value = FDT_ERR_QC_NOERROR;
+  int                        ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -1397,7 +1397,7 @@ dtb_extn_get_prop_names_size_of_node (
  * @prop_names: buffer pointer to hold all property names
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   macro: fdt_for_each_property_offset(int, const void *, int)
@@ -1414,7 +1414,7 @@ dtb_extn_get_prop_names_of_node (
   int                        len;               /* FdtLib: return errors & size */
   const char                 *pname;            /* FdtLib: return name */
   const struct fdt_property  *fdtp;             /* FdtLib: return raw prop data */
-  int                        ret_value = FDT_ERR_QC_NOERROR;
+  int                        ret_value = DTB_ERR_NOERROR;
 
   int       tlen, running_count = 0;
   char      *walk = prop_names;
@@ -1442,7 +1442,7 @@ dtb_extn_get_prop_names_of_node (
       if (len < INT_MAX) {
         tlen = len + 1;                         /* include '\0' on end */
       } else {
-        ret_value = -FDT_ERR_QC_OVERFLOW;
+        ret_value = -DTB_ERR_OVERFLOW;
         break;
       }
 
@@ -1454,12 +1454,12 @@ dtb_extn_get_prop_names_of_node (
         walk          += tlen;
         running_count += tlen;
       } else {
-        ret_value = FDT_ERR_QC_TRUNCATED;
+        ret_value = DTB_ERR_TRUNCATED;
         break;
       }
     }
   }
-  if ((FDT_ERR_QC_NOERROR == ret_value) && (size > 0)) {
+  if ((DTB_ERR_NOERROR == ret_value) && (size > 0)) {
     prop_names[size-1] = '\0';                          /* ensure buffer is null-terminated */
   }
 
@@ -1476,7 +1476,7 @@ dtb_extn_get_prop_names_of_node (
  * @node: pointer to dtb_extn_node_handle object
  * @count: pointer to uint32 to hold count of subnodes
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   macro: fdt_for_each_subnode(int, const void *, int)
@@ -1516,7 +1516,7 @@ dtb_extn_get_count_of_subnodes (
     PUTS (ibuffer);
   }
 
-  return FDT_ERR_QC_NOERROR;
+  return DTB_ERR_NOERROR;
 }
 
 /**
@@ -1531,7 +1531,7 @@ dtb_extn_get_count_of_subnodes (
  *                     with the DTB offset for each sub-node, so no string
  *                     lookup of the sub-node is required.
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   macro: fdt_for_each_subnode(int, const void *, int)
@@ -1599,7 +1599,7 @@ dtb_extn_get_cache_of_subnodes (
 
  #endif
 
-  return FDT_ERR_QC_NOERROR;
+  return DTB_ERR_NOERROR;
 }
 
 /**
@@ -1608,7 +1608,7 @@ dtb_extn_get_cache_of_subnodes (
  * @names: pointer to uint32_t array to hold sizes
  * @count: uint32 to hold count of array items
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   macro: fdt_for_each_subnode(int, const void *, int)
@@ -1623,7 +1623,7 @@ dtb_extn_get_size_of_subnode_names (
 {
   int  subnode;                                 /* FdtLib: subnode iterator */
   int  len;                                     /* FdtLib: return errors & size */
-  int  ret_value = FDT_ERR_QC_NOERROR;
+  int  ret_value = DTB_ERR_NOERROR;
 
   uint16_t  i = 0;
 
@@ -1635,7 +1635,7 @@ dtb_extn_get_size_of_subnode_names (
   PTR_CHECK (names);
 
   if (count == 0) {
-    ret_value = -FDT_ERR_QC_NILVALUE;
+    ret_value = -DTB_ERR_NILVALUE;
   } else {
     fdt_for_each_subnode (subnode, node->blob, node->offset) {
       (void)fdt_get_name (node->blob, subnode, &len);
@@ -1647,7 +1647,7 @@ dtb_extn_get_size_of_subnode_names (
       }
 
       if (i++ >= count) {
-        ret_value = FDT_ERR_QC_TRUNCATED;
+        ret_value = DTB_ERR_TRUNCATED;
         break;
       }
     }
@@ -1675,7 +1675,7 @@ dtb_extn_get_size_of_subnode_names (
  * @prop_names: buffer pointer to hold all subnode names
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   macro: fdt_for_each_subnode(int, const void *, int)
@@ -1691,7 +1691,7 @@ dtb_extn_get_subnode_names (
   int         subnode;                          /* FdtLib: subnode iterator */
   int         len;                              /* FdtLib: return errors & size */
   const char  *name;                            /* FdtLib: return raw prop data */
-  int         ret_value = FDT_ERR_QC_NOERROR;
+  int         ret_value = DTB_ERR_NOERROR;
 
   uint16_t  i;
   int       tlen;
@@ -1716,7 +1716,7 @@ dtb_extn_get_subnode_names (
     if (len < INT_MAX) {
       tlen = len + 1;                   /* include '\0' on end */
     } else {
-      ret_value = -FDT_ERR_QC_OVERFLOW;
+      ret_value = -DTB_ERR_OVERFLOW;
       break;
     }
 
@@ -1728,7 +1728,7 @@ dtb_extn_get_subnode_names (
       running_count += tlen;
       walk          += tlen;
     } else {
-      ret_value = -FDT_ERR_QC_BUF2SMALL;
+      ret_value = -DTB_ERR_BUF2SMALL;
       break;
     }
   }
@@ -1863,7 +1863,7 @@ init_root (
  * @name: current hash_node name
  * @depth: current hash_node depth
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  */
 static int
@@ -1886,7 +1886,7 @@ Recursive_find_subnode (
   if (NULL == node) {
     if (*name != '/') {
       dtb_log ("name parameter invaild\n");
-      return FDT_ERR_QC_INPUT_ARG_ERR;
+      return DTB_ERR_INPUT_ARG_ERR;
     } else {
       root_node = init_root (blob, name);
       total_node++;
@@ -1894,7 +1894,7 @@ Recursive_find_subnode (
         // root node level depth is 0
         return Recursive_find_subnode (blob, root_node, name, 0);
       } else {
-        return FDT_ERR_QC_MEMALLOC;
+        return DTB_ERR_MEMALLOC;
       }
     }
   } else {
@@ -1937,7 +1937,7 @@ Recursive_find_subnode (
 
       if (NULL != sub_node) {
         ret_value = Recursive_find_subnode (blob, sub_node, fullname, depth + 1);
-        if (ret_value != FDT_ERR_QC_NOERROR) {
+        if (ret_value != DTB_ERR_NOERROR) {
           return ret_value;
         }
       } else {
@@ -1946,10 +1946,10 @@ Recursive_find_subnode (
  #else
         dtb_log ("node add hash table fail:node name[%s]\n", fullname);
  #endif
-        return FDT_ERR_QC_MEMALLOC;
+        return DTB_ERR_MEMALLOC;
       }
     }
-    return FDT_ERR_QC_NOERROR;
+    return DTB_ERR_NOERROR;
   }
 }
 
@@ -2030,7 +2030,7 @@ print_all_dtb_nodes (
  * @blob: current dtb blob address
  * note:it need extra memory store dtb hash_node ,each hash_node need 40 byte memory space
  * total need memory is (total node * 40)
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  */
 int
@@ -2059,7 +2059,7 @@ dtb_extn_CreatDtbHashTable (
     free_hash_tables ();
     free_phandle_to_node_cache ();
     dtb_log ("current dtb hash table already exist, will disable dtb hash table feture\n");
-    return FDT_ERR_QC_NOERROR;
+    return DTB_ERR_NOERROR;
   }
 
   // alloc memory space for phandle to node offset cache
@@ -2081,6 +2081,6 @@ dtb_extn_CreatDtbHashTable (
   dtb_log ("end create dtb hash table..creat hash table cost time:[%llu]..total node:[%d]\n", (ets-bts), total_node);
   return ret_value;
  #else
-  return FDT_ERR_QC_NOERROR;
+  return DTB_ERR_NOERROR;
  #endif
 }

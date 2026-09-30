@@ -21,7 +21,7 @@
 /*=========================================================================
      Local Static Variables
 ==========================================================================*/
-static const void  *dtb_blob[MAX_BLOB_ID] = { NULL, NULL, NULL, NULL, NULL };
+static const void  *dtb_blob[DTB_MAX_BLOB_ID] = { NULL, NULL, NULL, NULL, NULL };
 
 /*=========================================================================
      Globals
@@ -37,7 +37,7 @@ Config  dtb_config = { 0, 0, 0 };
  * @blob: pointer to the device tree blob
  * @bsize: size of blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls: fdt_check_header()
  */
@@ -64,7 +64,7 @@ dtb_extn_check_for_valid_blob (
 
   /* 2) use internal function to check header */
   ret_value = fdt_check_header (blob);
-  if (FDT_ERR_QC_NOERROR != ret_value) {
+  if (DTB_ERR_NOERROR != ret_value) {
     if (dtb_config.verbose) {
       PUTS ("blob failed fdt_check_header");
     }
@@ -125,7 +125,7 @@ exit:
  * @bsize: size of blob
  * @blob_id: index for requested blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls: fdt_check_header()
  */
@@ -149,12 +149,12 @@ dtb_extn_set_blob_handle (
   /* sanity check dtb blob */
   ret_value = dtb_extn_check_for_valid_blob (blob, bsize);
 
-  if (FDT_ERR_QC_NOERROR == ret_value) {
+  if (DTB_ERR_NOERROR == ret_value) {
     /* blob passes checks... */
     ret_value = dtb_extn_get_node_handle (&node, blob, "/sw/boot");
-    if (FDT_ERR_QC_NOERROR == ret_value) {
+    if (DTB_ERR_NOERROR == ret_value) {
       ret_value = dtb_extn_get_uint32_prop_list (&node, "config", (void *)&dtb_config, sizeof (Config));
-      if (FDT_ERR_QC_NOERROR == ret_value) {
+      if (DTB_ERR_NOERROR == ret_value) {
         SNPRINTF (
                   ibuffer,
                   DTB_LINE_BUF_SIZE,
@@ -167,7 +167,7 @@ dtb_extn_set_blob_handle (
       }
     }
 
-    ret_value         = FDT_ERR_QC_NOERROR;
+    ret_value         = DTB_ERR_NOERROR;
     dtb_blob[blob_id] = blob;
   }
 
@@ -188,7 +188,7 @@ dtb_extn_set_blob_handle (
  * @blob: pointer to the device tree blob
  * @blob_id: index for requested blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_blob_handle (
@@ -196,7 +196,7 @@ dtb_extn_get_blob_handle (
   int         blob_id
   )
 {
-  int  ret_value = FDT_ERR_QC_NOERROR;
+  int  ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -211,7 +211,7 @@ dtb_extn_get_blob_handle (
       PUTS (ibuffer);
     }
 
-    ret_value = -FDT_ERR_QC_NULLPTR;
+    ret_value = -DTB_ERR_NULLPTR;
   } else {
     *blob = dtb_blob[blob_id];
   }
@@ -229,7 +229,7 @@ dtb_extn_get_blob_handle (
  * @node: pointer to dtb_extn_node_handle object
  * @size: pointer to uint32 to hold DTB size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_blob_size (
@@ -237,7 +237,7 @@ dtb_extn_get_blob_size (
   uint32_t         *size
   )
 {
-  int                ret_value = FDT_ERR_QC_NOERROR;
+  int                ret_value = DTB_ERR_NOERROR;
   struct fdt_header  *fhdr;
 
  #ifdef INSTRUMENTATION
@@ -272,7 +272,7 @@ dtb_extn_get_blob_size (
  * @node: pointer to dtb_extn_node_handle object
  * @blob: pointer to the device tree blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_init_root_handle_for_driver (
@@ -290,7 +290,7 @@ dtb_extn_init_root_handle_for_driver (
     PUTS ((char *)__func__);
   }
 
-  return FDT_ERR_QC_NOERROR;
+  return DTB_ERR_NOERROR;
 }
 
 /**
@@ -298,7 +298,7 @@ dtb_extn_init_root_handle_for_driver (
  * @node: pointer to dtb_extn_node_handle object
  * @blob_id: index into blob handle array
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_init_root_handle_for_driver_by_id (

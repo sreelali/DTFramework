@@ -398,7 +398,7 @@ int blob_id = 0;
 
 // Set blob handle - hash table is automatically created if ENABLE_HASH_FOR_DTB is defined
 int ret = dtb_extn_set_blob_handle(dtb_blob, blob_size, blob_id);
-if (ret == FDT_ERR_QC_NOERROR) {
+if (ret == DTB_ERR_NOERROR) {
     // Blob handle set successfully
     // Hash table has been created automatically
     // Subsequent node lookups will be much faster
@@ -436,9 +436,9 @@ All pull requests from external contributors are automatically scanned using [Se
 ### DTBExtnLib Error Codes
 
 The library uses standard FDT error codes and extends them with the following Qualcomm-specific error codes:
-- `FDT_ERR_QC_NULLPTR` - Null pointer error
-- `FDT_ERR_QC_BLOBID` - Invalid blob ID
-- `FDT_ERR_QC_FDTLIB_ERROR` - FDT library error
+- `DTB_ERR_NULLPTR` - Null pointer error
+- `DTB_ERR_BLOBID` - Invalid blob ID
+- `DTB_ERR_FDTLIB_ERROR` - FDT library error
 
 ### DTSelectLib Error Codes
 

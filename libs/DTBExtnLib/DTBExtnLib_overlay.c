@@ -39,7 +39,7 @@
  * @merge_blob:      Merged  DTB tree
  * @mb_size: 		 size of Merge Blob
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_totalsize()
@@ -60,17 +60,17 @@ int dtb_extn_merge_overlay(const void *primary_blob, size_t pb_size, void *overl
 
 	/* primary_blob should be a valid DTB */
 	ret_value = dtb_extn_check_for_valid_blob(primary_blob, pb_size);
-	if (FDT_ERR_QC_NOERROR != ret_value) goto exit;
+	if (DTB_ERR_NOERROR != ret_value) goto exit;
 	/* overlay_blob should be a valid DTBO */
 	ret_value = dtb_extn_check_for_valid_blob(overlay_blob, ob_size);
-	if (FDT_ERR_QC_NOERROR != ret_value) goto exit;
+	if (DTB_ERR_NOERROR != ret_value) goto exit;
 	/* mb_size has to be larger than ob_size and pb_size */
 	if ( (mb_size <= fdt_totalsize(overlay_blob)) || (mb_size <= fdt_totalsize(primary_blob)) ) {
 		if (dtb_config.verbose) {
 			SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "Merge Buffer too small[%ld]", mb_size);
 			PUTS(ibuffer);
 		}
-		ret_value = -FDT_ERR_QC_BUF2SMALL;
+		ret_value = -DTB_ERR_BUF2SMALL;
 		goto exit;
 	}
 
@@ -80,18 +80,18 @@ int dtb_extn_merge_overlay(const void *primary_blob, size_t pb_size, void *overl
 			SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "Merge Buffer too small[%ld]", mb_size);
 			PUTS(ibuffer);
 		}
-		ret_value = -FDT_ERR_QC_BUF2SMALL;
+		ret_value = -DTB_ERR_BUF2SMALL;
 		goto exit;
 	} else {
 		ret_value = fdt_open_into(primary_blob, merge_blob, mb_size);
-		if (FDT_ERR_QC_NOERROR != ret_value) {
+		if (DTB_ERR_NOERROR != ret_value) {
 			if (dtb_config.verbose) {
 				SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "fdt_open_into ERROR[%d]", ret_value);
 				PUTS(ibuffer);
 			}
 		} else {
 			ret_value = fdt_overlay_apply(merge_blob, overlay_blob);
-			if (FDT_ERR_QC_NOERROR != ret_value) {
+			if (DTB_ERR_NOERROR != ret_value) {
 				if (dtb_config.verbose) {
 					SNPRINTF(ibuffer, DTB_LINE_BUF_SIZE, "fdt_overlay_apply ERROR[%d]", ret_value);
 					PUTS(ibuffer);
@@ -100,10 +100,10 @@ int dtb_extn_merge_overlay(const void *primary_blob, size_t pb_size, void *overl
 		}
 	}
 
-	if (FDT_ERR_QC_NOERROR == ret_value) {
+	if (DTB_ERR_NOERROR == ret_value) {
 		/* sanity check dtb blob */
 		ret_value = fdt_check_header(merge_blob);
-		if (FDT_ERR_QC_NOERROR != ret_value) {
+		if (DTB_ERR_NOERROR != ret_value) {
 			if (dtb_config.verbose) {
 				PUTS("merge_blob failed fdt_check_header");
 			}

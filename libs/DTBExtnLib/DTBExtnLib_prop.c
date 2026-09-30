@@ -53,7 +53,7 @@ typedef union dt_ptr_type {
  * @prop_name: property name
  * @size: pointer to uint32 to hold buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   const void *fdt_getprop(const void *fdt, int nodeoffset, const char *name, int *lenp);
@@ -67,7 +67,7 @@ dtb_extn_get_prop_size (
 {
   int         len;                      /* FdtLib: return errors & size */
   const void  *prop_value;              /* FdtLib: return property value */
-  int         ret_value = FDT_ERR_QC_NOERROR;
+  int         ret_value = DTB_ERR_NOERROR;
 
  #ifdef INSTRUMENTATION
   char  ibuffer[DTB_LINE_BUF_SIZE];
@@ -115,7 +115,7 @@ dtb_extn_get_prop_size (
  * @count: count of slice to extract (0 for whole range)
  * @selector: enum, specifying type/size of actual value
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   const void *fdt_getprop(const void *fdt, int nodeoffset, const char *name, int *lenp);
@@ -136,7 +136,7 @@ _fdt_get_uintX_prop_list (
 {
   int         len;                      /* FdtLib: return errors & size */
   const void  *vptr     = NULL;         /* FdtLib: return property value */
-  int         ret_value = FDT_ERR_QC_NOERROR;
+  int         ret_value = DTB_ERR_NOERROR;
   uint32_t    *ptr      = NULL;
 
   dt_ptr_type  src, dst;
@@ -171,7 +171,7 @@ _fdt_get_uintX_prop_list (
         PUTS (ibuffer);
       }
 
-      ret_value = -FDT_ERR_QC_SLICE_RANGE;
+      ret_value = -DTB_ERR_SLICE_RANGE;
       goto exit;
     } else if (count > (data_count-index)) {
       /* Second check: start index+count out of range? */
@@ -182,7 +182,7 @@ _fdt_get_uintX_prop_list (
         PUTS (ibuffer);
       }
 
-      ret_value = -FDT_ERR_QC_SLICE_COUNT;
+      ret_value = -DTB_ERR_SLICE_COUNT;
       goto exit;
     } else if (count > elem_count) {
       /* Third check: size of buffer too small for data to extract? */
@@ -192,7 +192,7 @@ _fdt_get_uintX_prop_list (
         PUTS (ibuffer);
       }
 
-      ret_value = -FDT_ERR_QC_BUF2SMALL;
+      ret_value = -DTB_ERR_BUF2SMALL;
       goto exit;
     } else if ((0 == count) && (elem_count < (data_count - index))) {
       /* Fouth Check : Size of buffer is sufficent when count =0 (extarcting complete data) */
@@ -203,7 +203,7 @@ _fdt_get_uintX_prop_list (
         PUTS (ibuffer);
       }
 
-      ret_value = -FDT_ERR_QC_BUF2SMALL;
+      ret_value = -DTB_ERR_BUF2SMALL;
     } else {
       /* all checks complete, let's grab the property value(s) */
       switch (selector) {
@@ -226,7 +226,7 @@ _fdt_get_uintX_prop_list (
         case dt_boolean:
         /* Return error for boolean. Boolean cases are handled above */
         default:
-          ret_value = -FDT_ERR_QC_BAD_SELECTOR;
+          ret_value = -DTB_ERR_BAD_SELECTOR;
           goto exit;
       }
 
@@ -267,7 +267,7 @@ _fdt_get_uintX_prop_list (
           case dt_boolean:
           /* Return error for boolean. Boolean cases are handled above */
           default:
-            ret_value = -FDT_ERR_QC_BAD_SELECTOR;
+            ret_value = -DTB_ERR_BAD_SELECTOR;
             goto exit;
         }
       }
@@ -305,7 +305,7 @@ exit:
  * @prop_list: buffer pointer to hold uint8 list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint8_prop_list (
@@ -328,7 +328,7 @@ dtb_extn_get_uint8_prop_list (
  * @prop_name: property name
  * @value: pointer to uint8 to hold property value
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint8_prop (
@@ -352,7 +352,7 @@ dtb_extn_get_uint8_prop (
  * @index: starting index to extract
  * @count: number of values to extract
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint8_prop_list_slice (
@@ -377,7 +377,7 @@ dtb_extn_get_uint8_prop_list_slice (
  * @prop_list: buffer pointer to hold uint16 list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint16_prop_list (
@@ -400,7 +400,7 @@ dtb_extn_get_uint16_prop_list (
  * @prop_name: property name
  * @value: pointer to uint16 to hold property value
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint16_prop (
@@ -424,7 +424,7 @@ dtb_extn_get_uint16_prop (
  * @index: starting index to extract
  * @count: number of values to extract
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint16_prop_list_slice (
@@ -449,7 +449,7 @@ dtb_extn_get_uint16_prop_list_slice (
  * @prop_list: buffer pointer to hold uint32 list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint32_prop_list (
@@ -472,7 +472,7 @@ dtb_extn_get_uint32_prop_list (
  * @prop_name: property name
  * @value: pointer to uint32 to hold property value
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint32_prop (
@@ -495,7 +495,7 @@ dtb_extn_get_uint32_prop (
  * @prop_list: buffer pointer to hold uint64 list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint64_prop_list (
@@ -518,7 +518,7 @@ dtb_extn_get_uint64_prop_list (
  * @prop_name: property name
  * @value: pointer to uint64 to hold property value
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint64_prop (
@@ -542,7 +542,7 @@ dtb_extn_get_uint64_prop (
  * @index: starting index to extract
  * @count: number of values to extract
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  */
 int
 dtb_extn_get_uint64_prop_list_slice (
@@ -566,7 +566,7 @@ dtb_extn_get_uint64_prop_list_slice (
  * @prop_name: property name
  * @value: pointer to uint32 to hold property value
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  */
 int
@@ -589,7 +589,7 @@ dtb_extn_get_boolean_prop (
  * @prop_name: property name
  *
  * The length for Boolean property in Device Tree Blob is 0x0.
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  */
 int
@@ -613,7 +613,7 @@ dtb_extn_get_bool_prop (
  * @index: starting index to extract
  * @count: number of values to extract
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls: fdt_getprop()
  *               fdt32_to_cpu()
@@ -641,7 +641,7 @@ dtb_extn_get_uint32_prop_list_slice (
  * @string_list: buffer pointer to hold string list values
  * @size: buffer size (in bytes)
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  *
  * FdtLib calls:
  *   const struct fdt_property *fdt_get_property(const void *fdt, int nodeoffset, const char *name, int *lenp);
@@ -656,7 +656,7 @@ dtb_extn_get_string_prop_list (
 {
   int                        len;       /* FdtLib: return errors & size */
   const struct fdt_property  *fdtp;     /* FdtLib: return raw prop data */
-  int                        ret_value = FDT_ERR_QC_NOERROR;
+  int                        ret_value = DTB_ERR_NOERROR;
 
   int  i;
 
@@ -678,7 +678,7 @@ dtb_extn_get_string_prop_list (
         PUTS (ibuffer);
       }
 
-      ret_value = -FDT_ERR_QC_BUF2SMALL;
+      ret_value = -DTB_ERR_BUF2SMALL;
       goto exit;
     } else {
       for (i = 0; i < len; i++) {

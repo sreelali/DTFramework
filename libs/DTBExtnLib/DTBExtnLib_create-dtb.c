@@ -36,7 +36,7 @@
  * @node:			node handle pointer, node->blob must be populated by caller
  * @size:			size of buffer for new tree
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_create_empty_tree() 
@@ -60,7 +60,7 @@ int dtb_extn_add_tree(dtb_extn_node_handle *node, int size)
  * @path:			name of node to add
  * @offset:			offset of newly created node
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_add_subnode() 
@@ -86,7 +86,7 @@ int dtb_extn_add_node(dtb_extn_node_handle *node, char *path, int *offset)
     ret_value = fdt_add_subnode((void *)node->blob, node->offset, (const char *)path);
     if (ret_value >= 0) {
 		*offset = ret_value;
-		ret_value = FDT_ERR_QC_NOERROR;
+		ret_value = DTB_ERR_NOERROR;
 	}
 
 exit:
@@ -100,7 +100,7 @@ exit:
  * @val:			      u8 array of values to add
  * @count:                count of elements in list
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_setprop() 
@@ -124,7 +124,7 @@ int dtb_extn_add_prop_list_u8(dtb_extn_node_handle *node, char *prop_name, uint8
  * @val:			       u16 array of values to add
  * @count:                 count of elements in list
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_setprop() 
@@ -153,7 +153,7 @@ int dtb_extn_add_prop_list_u16(dtb_extn_node_handle *node, char *prop_name, uint
  * @val:			       u32 array of values to add
  * @count:                 count of elements in list
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_setprop() 
@@ -182,7 +182,7 @@ int dtb_extn_add_prop_list_u32(dtb_extn_node_handle *node, char *prop_name, uint
  * @val:			       u64 array of values to add
  * @count:                 count of elements in list
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_setprop() 
@@ -211,7 +211,7 @@ int dtb_extn_add_prop_list_u64(dtb_extn_node_handle *node, char *prop_name, uint
  * @val:			          array of string values to add
  * @count:                    count of elements in list
  *
- * returns: FDT_ERR_QC_NOERROR (success) else error indicator
+ * returns: DTB_ERR_NOERROR (success) else error indicator
  * 
  * FdtLib calls:
  * 		fdt_setprop() 
