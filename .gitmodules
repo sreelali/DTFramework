@@ -3,4 +3,7 @@
 	url = https://github.com/devicetree-org/pylibfdt.git
 [submodule "libs/libufdt"]
 	path = libs/libufdt
+	url = https://android.googlesource.com/platform/system/libufdt.git
+[submodule "lalitha/libufdt"]
+	path = lalitha/libufdt
 	url = https://android.googlesource.com/platform/system/libufdt
